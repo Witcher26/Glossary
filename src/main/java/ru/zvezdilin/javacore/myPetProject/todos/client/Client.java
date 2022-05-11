@@ -1,4 +1,4 @@
-package ru.zvezdilin.javacore.client;
+package ru.zvezdilin.javacore.myPetProject.todos.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;

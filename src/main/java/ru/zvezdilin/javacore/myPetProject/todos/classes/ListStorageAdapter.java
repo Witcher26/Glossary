@@ -1,29 +1,41 @@
-package ru.zvezdilin.javacore.classes;
+package ru.zvezdilin.javacore.myPetProject.todos.classes;
 
-import ru.zvezdilin.javacore.interfaces.IStorage;
+import ru.zvezdilin.javacore.myPetProject.todos.interfaces.IStorage;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SingleStorage implements IStorage {
-    protected static SingleStorage singleStorage;
-    private List<String> todosList;
+public class ListStorageAdapter implements IStorage {
+        protected List<String> todosList;
 
-    private SingleStorage() {
+    public ListStorageAdapter(List<String> todosList) {
+        this.todosList = todosList;
+    }
+    @Override
+    public void addTask(String task){
+        todosList.add(task);
     }
 
-    public static SingleStorage getStorage() {
-        if (singleStorage == null)
-            singleStorage = new SingleStorage();
-        return singleStorage;
+    @Override
+    public void removeTask(String task) {
+        todosList.remove(task);
     }
 
-    public List<String> getTodosList() {
-        if (this.todosList == null)
-            todosList = new ArrayList<>();
-        return todosList;
+    public String getAllTasks() {
+        StringBuilder tasks = new StringBuilder();
+
+        for (String task : todosList) {
+            tasks.append(tasks + "\n");
+        }
+        return tasks.toString();
     }
 }
+
+
+//    public List<String> getTodosList() {
+//        if (this.todosList == null)
+//            todosList = new ArrayList<>();
+//        return todosList;
+//    }
 
 
 //public class Adapter {

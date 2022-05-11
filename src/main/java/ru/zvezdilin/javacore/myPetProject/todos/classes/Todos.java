@@ -1,8 +1,6 @@
-package ru.zvezdilin.javacore.classes;
+package ru.zvezdilin.javacore.myPetProject.todos.classes;
 
-import ru.zvezdilin.javacore.interfaces.IStorage;
-
-import java.util.*;
+import ru.zvezdilin.javacore.myPetProject.todos.interfaces.IStorage;
 
 public class Todos  {
 

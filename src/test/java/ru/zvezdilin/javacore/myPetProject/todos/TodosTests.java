@@ -1,4 +1,4 @@
-package ru.zvezdilin.javacore;
+package ru.zvezdilin.javacore.myPetProject.todos;
 
 public class TodosTests {
 
