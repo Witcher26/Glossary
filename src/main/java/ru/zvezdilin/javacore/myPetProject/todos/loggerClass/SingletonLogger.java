@@ -1,4 +1,4 @@
-package ru.zvezdilin.javacore.myPetProject.todos.logger;
+package ru.zvezdilin.javacore.myPetProject.todos.loggerClass;
 
 
 import ru.zvezdilin.javacore.myPetProject.todos.interfaces.ILogger;
