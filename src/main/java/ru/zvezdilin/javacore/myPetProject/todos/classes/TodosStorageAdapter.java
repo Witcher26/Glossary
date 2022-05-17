@@ -4,15 +4,22 @@ import ru.zvezdilin.javacore.myPetProject.todos.interfaces.IStorage;
 
 import java.util.List;
 
-public class ListStorageAdapter implements IStorage {
-        protected List<String> todosList;
+public class TodosStorageAdapter implements IStorage {
+    protected List<String> todosList;
 
-    public ListStorageAdapter(List<String> todosList) {
+    public TodosStorageAdapter(List<String> todosList) {
         this.todosList = todosList;
     }
+
     @Override
-    public void addTask(String task){
-        todosList.add(task);
+    public void addTask(String task) {
+        String tmpStringLowCase = task.toLowerCase();
+        if (todosList.contains(tmpStringLowCase)) {
+            System.out.println("Данная задача уже присутствует в списке задач");
+            return;
+        } else {
+            todosList.add(task);
+        }
     }
 
     @Override
@@ -21,12 +28,12 @@ public class ListStorageAdapter implements IStorage {
     }
 
     public String getAllTasks() {
-        StringBuilder tasks = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
         for (String task : todosList) {
-            tasks.append(tasks + "\n");
+            sb.append(sb + "\n");
         }
-        return tasks.toString();
+        return sb.toString();
     }
 }
 

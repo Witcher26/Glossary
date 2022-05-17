@@ -2,27 +2,22 @@ package ru.zvezdilin.javacore.myPetProject.todos.classes;
 
 import ru.zvezdilin.javacore.myPetProject.todos.interfaces.IStorage;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class SingletonStorage {
+public final class SingletonStorage {
     private static SingletonStorage singletonStorage;
-    protected static IStorage storage;
+    private static IStorage storage;
 
     private SingletonStorage(IStorage storage) {
         this.storage = storage;
     }
 
-    public static synchronized SingletonStorage getStorageInstance() throws NullPointerException {
-        //TODO прописание исключительной ситуации
-        return singletonStorage;
-    }
-
-
-    public static synchronized SingletonStorage createStorageInstance(IStorage storage) {
+    public static synchronized SingletonStorage getStorageInstance() {
         if (singletonStorage == null) {
-            System.out.println("Хранилище создано.");
-            singletonStorage = new SingletonStorage(storage);
-        } else {
-            System.out.println("Хранилище было создано ранее. Создать новое не удалось.");
+            List<String> storage = new ArrayList<>();
+            TodosStorageAdapter adapter = new TodosStorageAdapter(storage);
+            singletonStorage = new SingletonStorage(adapter);
         }
         return singletonStorage;
     }

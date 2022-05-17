@@ -4,7 +4,7 @@ import ru.zvezdilin.javacore.myPetProject.todos.interfaces.IStorage;
 
 public class Todos  {
 
-    protected final IStorage storage;
+    private final IStorage storage;
 
     public Todos(IStorage storage) {
         this.storage = storage;
@@ -21,5 +21,4 @@ public class Todos  {
     public String getAllTasks() {
         return storage.getAllTasks();
     }
-
 }
