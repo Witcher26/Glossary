@@ -1,8 +1,9 @@
 package ru.zvezdilin.javacore.myPetProject.todos.classes;
 
 import ru.zvezdilin.javacore.myPetProject.todos.interfaces.IStorage;
+import ru.zvezdilin.javacore.myPetProject.todos.languageObjects.Language;
 
-public class Todos  {
+public abstract class Todos {
 
     private final IStorage storage;
 
@@ -10,11 +11,11 @@ public class Todos  {
         this.storage = storage;
     }
 
-    public void addTask(String task) {
+    public void addTask(Language task) {
         storage.addTask(task);
     }
 
-    public void removeTask(String task) {
+    public void removeTask(Language task) {
         storage.removeTask(task);
     }
 

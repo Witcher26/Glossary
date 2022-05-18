@@ -1,6 +1,8 @@
-package ru.zvezdilin.javacore.myPetProject.todos.classes;
+package ru.zvezdilin.javacore.myPetProject.todos.clientServerClasses;
 
 //import com.google.gson.Gson;
+
+import ru.zvezdilin.javacore.myPetProject.todos.classes.Todos;
 
 import java.io.*;
 

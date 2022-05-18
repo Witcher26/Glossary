@@ -1,5 +1,7 @@
 package ru.zvezdilin.javacore.myPetProject.todos.interfaces;
 
+import ru.zvezdilin.javacore.myPetProject.todos.languageObjects.Language;
+
 public interface IStorage {
     /**
      * Добавление задач в хранилище. Хралище должно быть в одном
@@ -13,17 +15,17 @@ public interface IStorage {
      * @throws IOException при введении неверных данных??
      *
      */
-    void addTask(String task);
+    void addTask(Language task);
 
     /**
      *Удаление задач из хранилища. При отсутствии задач вывод сообщения или своего собественного искл.
      */
 
-    void removeTask(String task);
+    void removeTask(Language task);
 
     /**
      * Вывод всех задач (даже если список пустой - извещение об этом).
-     * @return коллекцию из String
+     * @return собранную строку (посредством SB)
      */
 
     String getAllTasks();
