@@ -3,7 +3,7 @@ package ru.zvezdilin.javacore.myPetProject.todos.classes;
 import ru.zvezdilin.javacore.myPetProject.todos.interfaces.IStorage;
 import ru.zvezdilin.javacore.myPetProject.todos.languageObjects.Language;
 
-public abstract class Todos {
+public class Todos {
 
     private final IStorage storage;
 

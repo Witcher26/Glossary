@@ -3,7 +3,10 @@ package ru.zvezdilin.javacore.myPetProject.todos.classes;
 import ru.zvezdilin.javacore.myPetProject.todos.interfaces.IStorage;
 import ru.zvezdilin.javacore.myPetProject.todos.languageObjects.Language;
 
+import java.util.Comparator;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 public class TodosLanguageStorageAdapter implements IStorage {
@@ -30,11 +33,17 @@ public class TodosLanguageStorageAdapter implements IStorage {
         String strToLowCase = word.getWord().toLowerCase();
         if (todosList.containsKey(strToLowCase)) {
             System.out.println("Слово " + word.getWord() + " удалено");
-            todosList.remove(word.getWord());
+            todosList.remove(strToLowCase);
         } else {
             System.out.println("Нет совпадений");
         }
     }
+
+
+//    @Override
+//    public int compare(StringBuilder st1, StringBuilder st2){
+//        return st1.toString().compareTo(st2.toString());
+//    }
 
     public String getAllTasks() {
         if (todosList.isEmpty()) {
@@ -44,6 +53,7 @@ public class TodosLanguageStorageAdapter implements IStorage {
 
         StringBuilder sb = new StringBuilder();  //TODO реализация через SB
 
+        //TODO реализоваться comparator
         for (Map.Entry<String, Language> entry : todosList.entrySet()) {
             sb.append(entry.getKey() + "\n");
         }
