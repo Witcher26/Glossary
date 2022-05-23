@@ -20,16 +20,9 @@ public class TodosTests {
     TodosLanguageStorageAdapter adapter = new TodosLanguageStorageAdapter(storage);
     Todos todos = new Todos(adapter);
 
-//    Map<String, Language> staticStorages(){
 
-    static Todos staticStorages() {
-        Map<String, Language> storage = new HashMap<>();
-        TodosLanguageStorageAdapter adapter = new TodosLanguageStorageAdapter(storage);
-        Todos todos = new Todos(adapter);
-
-        todos.addTask(new English("related", "связанный"));
-        todos.addTask(new English("Unit", "единица измерения"));
-        return todos;
+    static Language[] staticStorageWords() {
+        return new Language[]{new English("related", "связанный")};
     }
 
 
@@ -67,40 +60,43 @@ public class TodosTests {
         Assertions.assertEquals(expected, result);
     }
 
+
     @Test
     @ParameterizedTest
-    @MethodSource("staticStorages")
-    public void testRemoveTask(Todos todos) {
-        Language related = new English("related", "связанный");
-        todos.addTask(related);
-        todos.addTask(new English("Unit", "единица измерения"));
+    @MethodSource("staticStorageWords")
+    public void testRemoveTask(Language word) {
+        //arrange
+        todos.addTask(word);
+//        Language related = new English("related", "связанный");
 
-        todos.removeTask(related);
+        //act
+        todos.removeTask(new English("related", "связанный"));
 
         String result = todos.getAllTasks();
 
-
-        Assertions.assertEquals("unit", result);
-
-
+        //assert
+        Assertions.assertEquals("Слова отсутствуют", result);
     }
 
 
-//    static Map<String, Language> addAllTask(){
+    //    static Map<String, Language> addAllTask(){
 //
 //    }
 //
-//    @ParameterizedTest
-//    @MethodSource("TestSource")
-//    public void testParCheckWithSource(int year, int days, boolean expected) {
-//        boolean result = checkYear.checkYear(year, days);
-//        Assertions.assertEquals(expected, result);
-//    }
-//
-//    private static Stream<Arguments> TestSource() {
-//        return Stream.of(
-//                Arguments.of(1764, 366, true),
-//                Arguments.of(2013, 365, true)
-//        );
-//    }
+    @ParameterizedTest
+    @MethodSource("TestSource")
+    public void testCheckAddTaskWithSource(Language word) {
+        todos.addTask(word);
+        String result = todos.getAllTasks();
+        String expected = word.getWord().toLowerCase() + "\n";
+        Assertions.assertEquals(expected, result);
+    }
+
+    private static Stream<Arguments> TestSource() {
+        return Stream.of(
+                Arguments.of(new English("related", "связанный")),
+                Arguments.of(new English("Unit", "единица измерения")),
+                Arguments.of(new English("Terminate", "завершать"))
+        );
+    }
 }

@@ -15,10 +15,10 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-//        Map<String, Language> storage = new HashMap<>();
-////        List<String, Language> storage = new ArrayList<>();
-//        TodosLanguageStorageAdapter adapter = new TodosLanguageStorageAdapter(storage);
-//        Todos todos = new Todos(adapter);
+        Map<String, Language> storage = new HashMap<>();
+//        List<String, Language> storage = new ArrayList<>();
+        TodosLanguageStorageAdapter adapter = new TodosLanguageStorageAdapter(storage);
+        Todos todos = new Todos(adapter);
 //
 //        todos.getAllTasks();
 //        Language unit = new English("Unit", "единица измерения");
@@ -41,6 +41,9 @@ public class Main {
 ////TODO в тест добавить мокирование
 
         String result =  choose(true, "first", "second");
+
+        TodoServer server = new TodoServer(8989, todos);
+        server.start();
 
 
 
