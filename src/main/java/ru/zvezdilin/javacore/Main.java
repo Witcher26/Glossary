@@ -37,7 +37,7 @@ public class Main {
 //
 //
 //        TodoServer server = new TodoServer(8989, todos);
-////        server.start();
+//        server.start();
 ////TODO в тест добавить мокирование
 
         String result =  choose(true, "first", "second");
