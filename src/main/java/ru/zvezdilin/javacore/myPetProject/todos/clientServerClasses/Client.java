@@ -15,41 +15,44 @@ public class Client {
     private static final String messFromServ = "Message from Server: "; //TODO заменить другой фигней
 
     public static void main(String[] args) {
+        MySingletonLogger logger = MySingletonLogger.getLogger();
+        logger.getInfo("Старт на клиенте");
 
         try {
             try (Socket clientSocket = new Socket("localhost", 8989);
                  BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                  PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
-                MySingletonLogger logger = MySingletonLogger.getLogger();
-                logger.append("Старт на клиенте");
 
+                logger.getInfo("Вывод в консоль сообщения с номером порта %s " + clientSocket.getPort());
                 System.out.printf("Подключение к серверу с портом %s ", clientSocket.getPort() + "\n");
-                logger.append("Вывод в консольк сообещния, что подключение к серверу с портом %s " + clientSocket.getPort() + "\n");
-
 
                 String word = Integer.toString(clientSocket.getPort());
-                logger.append("Получение порта на стороне клиента");
+
                 out.write(word + "\n"); // ШАГ 1: посылка первого сообщения на сервер
                 out.flush();
-                logger.append("Отправка номера порта на сервер");
+                logger.getInfo("Отправка номера порта на сервер: " + word);
                 Thread.sleep(1000); // ШАГ 3: синхронизация
 
-
+                logger.getInfo("Приём сообщения от сервера об удачном подключении:");
                 System.out.println(messFromServ + in.readLine()); // ШАГ 5: приём сообщения от сервера
-                logger.append("Приём сообщения от сервера: подключение удачно");
                 Thread.sleep(1000); //  ШАГ 6: синхронизация
 
+                logger.getInfo("Получение сообщения от сервера о написании имени:");
                 System.out.println(messFromServ + in.readLine()); //ШАГ 8: приём сообщения
-                logger.append("Получение сообщения от сервера - Write your name");
-
-                out.write("Igor"); // шаг 9: отправка сообщени от сервера
-                logger.append("Отправка имени Igor на сервер");
 
 
-//                Language unit = new English("Unit", "единица измерения");
-//                String wordToJson = languageToJson(unit);
-//                out.write(wordToJson);
-//                out.flush();
+                //шаг 9 -отправка объекта
+
+                //TODO обернуть в метод
+                Language unit = new English("Unit", "единица измерения");
+                String wordToJson = languageToJson(unit);
+                Thread.sleep(1000);
+
+                String sb = "{ \"type\": \"ADD\", \"task\": \"" + wordToJson + "\" }";
+
+                out.write(sb);
+                out.flush();
+                logger.getInfo("Отправка на сервер Language unit в json-строке - " + unit);
 
             }
 
@@ -58,7 +61,7 @@ public class Client {
         }
     }
 
-    public static String languageToJson(Language language) { //TODO не переводит в json TIMELOCAL
+    public static String languageToJson(Language language) { //TODO не переводит в json TIMELOCADATE
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         return gson.toJson(language);

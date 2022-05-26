@@ -8,5 +8,5 @@ public interface ILogger {
      * При запросе истории логгирования stringBuilder будет конвертирован в String методом toString();
      *
      */
-    void append(String str);
+    void getInfo(String str);
 }
