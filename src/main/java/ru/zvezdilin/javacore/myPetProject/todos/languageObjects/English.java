@@ -4,6 +4,9 @@ import ru.zvezdilin.javacore.myPetProject.todos.exeptionClass.BadDataException;
 
 public class English extends Language {
 
+    public English() {
+    }
+
     public English(String word, String translation) {
         super(word, translation);
     }

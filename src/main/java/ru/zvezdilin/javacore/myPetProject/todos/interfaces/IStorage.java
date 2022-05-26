@@ -21,7 +21,7 @@ public interface IStorage {
      *Удаление задач из хранилища. При отсутствии задач вывод сообщения или своего собественного искл.
      */
 
-    void removeTask(Language task);
+    void removeTask(String task);
 
     /**
      * Вывод всех задач (даже если список пустой - извещение об этом).

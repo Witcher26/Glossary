@@ -28,11 +28,11 @@ public class TodosLanguageStorageAdapter implements IStorage {
     }
 
     @Override
-    public void removeTask(Language word) {
+    public void removeTask(String language) {
         //TODO добавить возможность удаления заданий по номеру.
-        String strToLowCase = word.getWord().toLowerCase();
+        String strToLowCase = language.toLowerCase();
         if (todosList.containsKey(strToLowCase)) {
-            System.out.println("Слово " + word.getWord() + " удалено");
+            System.out.println("Слово " + language + " удалено");
             todosList.remove(strToLowCase);
         } else {
             System.out.println("Нет совпадений");

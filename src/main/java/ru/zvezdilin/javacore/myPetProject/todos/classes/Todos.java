@@ -15,7 +15,7 @@ public class Todos {
         storage.addTask(task);
     }
 
-    public void removeTask(Language task) {
+    public void removeTask(String task) {
         storage.removeTask(task);
     }
 

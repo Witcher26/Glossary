@@ -7,19 +7,22 @@ import java.time.LocalDateTime;
 
 //Todo возможно применить интерфейс ITodoSmth к одному из конкретных классов..либо это будет функция группировка
 public abstract class Language implements IToDoSmth {
-    private static int GLOBAL_ID = 0;
-    private int id;
-    private LocalDateTime localDateTime;
+    public static int GLOBAL_ID = 0;  //TODO public заменить на private
+    public int id;
+//    public LocalDateTime localDateTime;
     protected static String language;
     protected String word;
     protected String translation;
     protected Priority priority;
 
+    public Language() {
+    }
+
     public Language(String word, String translation) {
         this.word = word;
         this.translation = translation;
         this.id = GLOBAL_ID++;
-        this.localDateTime = LocalDateTime.now();
+//        this.localDateTime = LocalDateTime.now();
         this.priority = Priority.LOW;
 
     }
@@ -44,6 +47,11 @@ public abstract class Language implements IToDoSmth {
 
     public void settPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    @Override
+    public String toString() {
+        return "слово: " + getWord()  + " перевод: " + getTranslation();
     }
 }
 
