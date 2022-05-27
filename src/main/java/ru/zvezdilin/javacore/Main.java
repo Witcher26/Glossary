@@ -55,5 +55,9 @@ public class Main {
 //        {"id":0,"word":"Unit","translation":"единица измерения","priority":"LOW"}
 //        {"id":0,"word":"Unit","translation":"единица измерения","priority":"LOW}"
 
+        System.out.println("Hello");
+
+
+
     }
 }
