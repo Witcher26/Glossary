@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ru.zvezdilin.javacore.myPetProject.todos.languageObjects.English;
 import ru.zvezdilin.javacore.myPetProject.todos.languageObjects.Language;
+import ru.zvezdilin.javacore.myPetProject.todos.languageObjects.Type;
 import ru.zvezdilin.javacore.myPetProject.todos.loggerClass.MySingletonLogger;
 
 import java.io.*;
@@ -44,15 +45,18 @@ public class Client {
                 //шаг 9 -отправка объекта
 
                 //TODO обернуть в метод
-                Language unit = new English("Unit", "единица измерения");
-                String wordToJson = languageToJson(unit);
+                Language unit = Client.createNewWord("Unit", "единица измерения", Type.EN);
+                String wordToJsonToServer = Client.languageToJson(unit);
+                String st = Client.makeRequestToAddNewWord(wordToJsonToServer);
+                logger.getInfo("Получилось слово: " + st);
+
                 Thread.sleep(1000);
 
-                String sb = "{ \"type\": \"ADD\", \"task\": \"" + wordToJson + "\" }";
+//                String sb = "{ \"type\": \"ADD\", \"task\": \"" + wordToJson + "\" }";
 
-                out.write(sb);
+                out.write(st);
                 out.flush();
-                logger.getInfo("Отправка на сервер Language unit в json-строке - " + unit);
+                logger.getInfo("Отправка на сервер Language unit в json-строке: - " + st);
 
             }
 
@@ -65,5 +69,22 @@ public class Client {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         return gson.toJson(language);
+    }
+
+    public static Language createNewWord(String word, String translation, Type type) {
+        Language language = null;
+        if (type == Type.EN) {
+            English english = new English(word, translation);
+            language = english;
+        }
+        return language;
+    }
+
+    public static String makeRequestToAddNewWord(String wordInJson) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ \"type\": \"ADD\", \"task\": ");
+        sb.append(wordInJson);
+        sb.append("\"}");
+        return sb.toString();
     }
 }
