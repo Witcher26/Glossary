@@ -45,7 +45,7 @@ public class Client {
                 //шаг 9 -отправка объекта
 
                 //TODO обернуть в метод
-                Language unit = Client.createNewWord("Unit", "единица измерения", Type.EN);
+                Language unit = Client.createNewWord("Sequence", "последовательность", Type.EN);
                 String wordToJsonToServer = Client.languageToJson(unit);
                 String st = Client.makeRequestToAddNewWord(wordToJsonToServer);
                 logger.getInfo("Получилось слово: " + st);
@@ -57,6 +57,8 @@ public class Client {
                 out.write(st);
                 out.flush();
                 logger.getInfo("Отправка на сервер Language unit в json-строке: - " + st);
+
+
 
             }
 
@@ -80,11 +82,29 @@ public class Client {
         return language;
     }
 
-    public static String makeRequestToAddNewWord(String wordInJson) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{ \"type\": \"ADD\", \"task\": ");
-        sb.append(wordInJson);
-        sb.append("\"}");
-        return sb.toString();
+    public static String makeRequestToAddNewWord(String wordInJson) throws InterruptedException {
+        StringBuilder sb1 = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb3 = new StringBuilder();
+
+        sb1.append("{ \"type\": \"ADD\", \"task\": \"");  //TODO всё равно эта хрень не работает как надо
+        Thread.sleep(500);
+        String[] parts = wordInJson.split("\"");
+
+        for (int i = 0; i < parts.length; i++) {
+            sb1.append( parts[i]);
+            if(i==parts.length-1) {
+                continue;
+            }
+            sb1.append("\\\"" );
+        }
+
+//        for (String part : parts) {
+//            sb1.append( part +"\\\"" );
+//        }
+        sb1.append("\"}");
+        return sb1.toString();
     }
 }
+//{ "type": "ADD", "task": {"id":0,"word":"Unit","translation":"единица измерения","priority":"LOW" }"}
+//{ \"type\": \"ADD\", \"task\": \"{\\\"id\\\":0,\\\"word\\\":\\\"Unit\\\",\\\"translation\\\":\\\"единица измерения\\\",\\\"priority\\\":\\\"LOW\\\"}\" };
