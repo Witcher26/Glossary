@@ -47,8 +47,8 @@ public class TodosLanguageStorageAdapter implements IStorage {
 
     public String getAllTasks() {
         if (todosList.isEmpty()) {
-            System.out.println("Список заданий пуст");
-            return "Слова отсутствуют";
+            System.out.println("Слова отсутствуют в списке");
+            return "Слова отсутствуют в списке";
         }
 
         StringBuilder sb = new StringBuilder();  //TODO реализация через SB

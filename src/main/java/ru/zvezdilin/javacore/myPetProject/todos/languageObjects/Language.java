@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public abstract class Language implements IToDoSmth {
     public static int GLOBAL_ID = 0;  //TODO public заменить на private
     public int id;
-//    public LocalDateTime localDateTime;
+    public String localDateTime;
     protected static String language;
     protected String word;
     protected String translation;
@@ -22,7 +22,7 @@ public abstract class Language implements IToDoSmth {
         this.word = word;
         this.translation = translation;
         this.id = GLOBAL_ID++;
-//        this.localDateTime = LocalDateTime.now();
+        this.localDateTime = LocalDateTime.now().toString();
         this.priority = Priority.LOW;
 
     }
@@ -51,7 +51,7 @@ public abstract class Language implements IToDoSmth {
 
     @Override
     public String toString() {
-        return "слово: " + getWord()  + " перевод: " + getTranslation();
+        return "Слово: \"" + getWord()  + "\", его перевод: \"" + getTranslation()+ "\"";
     }
 }
 

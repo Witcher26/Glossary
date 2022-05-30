@@ -49,9 +49,7 @@ public class TodoServer {
             logger.getInfo("Получение объекта в формате json: " + requestFromClientStringInJson);
             System.out.println(requestFromClientStringInJson); // ШАГ 10: приём объекта
 
-
-
-            while (true) {  //TODO прописать условие выполнения бесконечного цикла или метод выхода из цикла
+//            while (true) {  //TODO прописать условие выполнения бесконечного цикла или метод выхода из цикла
 
                 //TODO ожидание команды со сторны client
 
@@ -63,10 +61,10 @@ public class TodoServer {
                 logger.getInfo("получение details при парсинге: " + details.toString());
 
                 String type = details.get("type").getAsString();
-                logger.getInfo("получение type: " + details);
+                logger.getInfo("получение type: " + type);
 
                 String languageInJson = details.get("task").getAsString();
-                logger.getInfo("получение task: " + details);
+                logger.getInfo("получение task: " + languageInJson);
 
 
                 switch (type) {
@@ -85,10 +83,8 @@ public class TodoServer {
                     case ("getAllTasks"):
                         todos.getAllTasks();
                         break;
-
-
                 }
-            }
+//            }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -121,6 +117,11 @@ public class TodoServer {
 //
 ////                        System.out.println(languageInJson);
 //        }
+
+
+//{ "type": "ADD", "task": "Название задачи" }
+//{ "type": "ADD", "task": {"id":0,"word":"Unit","translation":"единица измерения","priority":"LOW" }"}
+
 
 
 

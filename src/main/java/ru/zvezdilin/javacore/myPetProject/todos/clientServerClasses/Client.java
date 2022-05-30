@@ -9,7 +9,7 @@ import ru.zvezdilin.javacore.myPetProject.todos.loggerClass.MySingletonLogger;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Random;
+
 
 public class Client {
     private static final String welcome = "Hello men. Welcome to my first Pet-Project. It's called a dictionary ";//TODO заменить
@@ -45,18 +45,25 @@ public class Client {
                 //шаг 9 -отправка объекта
 
                 //TODO обернуть в метод
-                Language unit = Client.createNewWord("Unit", "единица измерения", Type.EN);
+                Language unit = Client.createNewWord("Sequence", "последовательность", Type.EN);
                 String wordToJsonToServer = Client.languageToJson(unit);
                 String st = Client.makeRequestToAddNewWord(wordToJsonToServer);
                 logger.getInfo("Получилось слово: " + st);
 
                 Thread.sleep(1000);
 
-//                String sb = "{ \"type\": \"ADD\", \"task\": \"" + wordToJson + "\" }";
+//                out.write(st);
+//                out.flush();
+//                logger.getInfo("Отправка на сервер Language unit в json-строке: - " + st);
 
-                out.write(st);
+
+//                logger.getInfo("Отправка на сервер команды об удалении слова unit");
+//                out.write(makeRequestToRemoveWord("unit"));
+//                out.flush();
+
+                logger.getInfo("Отправка на сервер команды об выведе всех слов в консоль");
+                out.write(makeRequestToGetAllTasks());
                 out.flush();
-                logger.getInfo("Отправка на сервер Language unit в json-строке: - " + st);
 
             }
 
@@ -80,11 +87,34 @@ public class Client {
         return language;
     }
 
-    public static String makeRequestToAddNewWord(String wordInJson) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{ \"type\": \"ADD\", \"task\": ");
-        sb.append(wordInJson);
-        sb.append("\"}");
-        return sb.toString();
+    public static String makeRequestToAddNewWord(String wordInJson) throws InterruptedException {
+        StringBuilder sb1 = new StringBuilder();
+
+        sb1.append("{ \"type\": \"ADD\", \"task\": \"");
+        Thread.sleep(500);
+        String[] parts = wordInJson.split("\"");
+
+        for (int i = 0; i < parts.length; i++) {
+            sb1.append(parts[i]);
+            if (i == parts.length - 1) {
+                continue;
+            }
+            sb1.append("\\\"");
+        }
+
+        sb1.append("\"}");
+        return sb1.toString();
+    }
+
+    public static String makeRequestToRemoveWord(String wordToRemove) {
+        return new StringBuilder().append("{ \"type\": \"REMOVE\", \"task\": \"").
+                append(wordToRemove).
+                append("\"}").
+                toString();
+    }
+
+    public static String makeRequestToGetAllTasks() {
+        return new StringBuilder().append("{ \"type\": \"GETALLTASKS\", \"task\": \"").append("\"}").toString();
     }
 }
+
