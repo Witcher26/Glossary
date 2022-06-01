@@ -9,36 +9,24 @@ public class English extends Language {
 
     public English(String word, String translation) {
         super(word, translation);
+        this.language = Type.EN;
     }
 
     @Override
-    public void editWord(String word) throws BadDataException {
+    public boolean isAlphabet(String name) {
+        return name.matches("[a-zA-Zа-яА-Я]+"); //TODO добавить match на пробел и знак -
+    }
 
+    @Override
+    protected String checkEditWord(String word) throws BadDataException {
         if (word.isEmpty()) {
             throw new NullPointerException("word is null");
-        } else if (!isAlpha(word)) {
-            throw new BadDataException("this is not a word");
+        } else if (!isAlphabet(word)) {
+            throw new BadDataException("допустимы символы: \"a-zA-Zа-яА-Я\"");
         } else {
-            this.word = word;
+            return word;
         }
-    }
-
-    @Override
-    public void editTranslation(String translation) throws BadDataException {
-
-        if (translation.isEmpty()) {
-            throw new NullPointerException("word is null");
-        } else if (!isAlpha(translation)) {
-            throw new BadDataException("this is not a word");
-        } else {
-            this.translation = translation;
-        }
-    }
-
-    public boolean isAlpha(String name) {
-        return name.matches("[a-zA-Z]+");
     }
 }
 
-
-//    String split = ("\\P{IsAlphabetic}+");
+//    String[] words = text.split("\\P{IsAlphabetic}+"); //алфавитные символы

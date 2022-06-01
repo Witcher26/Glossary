@@ -4,13 +4,15 @@ import ru.zvezdilin.javacore.myPetProject.todos.exeptionClass.BadDataException;
 import ru.zvezdilin.javacore.myPetProject.todos.interfaces.IToDoSmth;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
-//Todo возможно применить интерфейс ITodoSmth к одному из конкретных классов..либо это будет функция группировка
+//Todo применить интерфейс IToDoSmth для добавления новых возможностей. В данный момент интерфейс не имеет контрактов
 public abstract class Language implements IToDoSmth {
-    public static int GLOBAL_ID = 0;  //TODO public заменить на private
-    public int id;
-    public String localDateTime;
-    protected static String language;
+    private static int GLOBAL_ID = 0;  //TODO public заменить на private
+    private int id;
+    private String localDateTime;
+    protected Type language;
     protected String word;
     protected String translation;
     protected Priority priority;
@@ -22,36 +24,44 @@ public abstract class Language implements IToDoSmth {
         this.word = word;
         this.translation = translation;
         this.id = GLOBAL_ID++;
-        this.localDateTime = LocalDateTime.now().toString();
+        this.localDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_DATE_TIME);
         this.priority = Priority.LOW;
-
     }
 
     public String getWord() {
         return this.word;
     }
 
-    //TODO обстрактный
-    public abstract void editWord(String word) throws BadDataException;
+    public void editWord(String word) throws BadDataException {
+        this.word = checkEditWord(word);
+    }
 
     public String getTranslation() {
         return this.translation;
     }
 
-    //TODO обстрактный
-    public abstract void editTranslation(String translation) throws BadDataException;
+    public void editTranslation(String translation) throws BadDataException {
+        this.translation = checkEditWord(translation);
+    }
+
+    //TODO abstract method isAlphabet(), переопределяется в каждом конкретном классе в зависимости от ракладки
+    public abstract boolean isAlphabet(String name);
+
+
+    //TODO abstract method, переопределяется в каждом конкретном классе в зависимости от isAlphabet()
+    protected abstract String checkEditWord(String word) throws BadDataException;
 
     public Priority getPriority() {
         return this.priority;
     }
 
-    public void settPriority(Priority priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
     @Override
     public String toString() {
-        return "Слово: \"" + getWord()  + "\", его перевод: \"" + getTranslation()+ "\"";
+        return "Слово: \"" + getWord().toLowerCase() + "\", его перевод: \"" + getTranslation().toLowerCase() + "\"";
     }
 }
 

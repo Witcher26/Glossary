@@ -46,9 +46,10 @@ public class Client {
 
                 //TODO обернуть в метод
                 Language unit = Client.createNewWord("Sequence", "последовательность", Type.EN);
+                logger.getInfo("Создание нового слова: " + unit);
                 String wordToJsonToServer = Client.languageToJson(unit);
                 String st = Client.makeRequestToAddNewWord(wordToJsonToServer);
-                logger.getInfo("Получилось слово: " + st);
+                logger.getInfo("слово в формате json: " + st);
 
                 Thread.sleep(1000);
 

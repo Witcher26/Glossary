@@ -18,22 +18,18 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 public class Main {
-    protected static Logger l;
-
     public static void main(String[] args) { //TODO в тесты добавить мокирование, имитирующее ответ работу client + server + База Данных PostgresQL
         MySingletonLogger logger = MySingletonLogger.getLogger();
+        logger.getInfo("Выполнение точки входа. Старт программы");
 
         Map<String, Language> storage = new HashMap<>();
         TodosLanguageStorageAdapter adapter = new TodosLanguageStorageAdapter(storage);
         Todos todos = new Todos(adapter);
+
+        logger.getInfo("Запуск сервера");
         TodoServer server = new TodoServer(8989, todos);
         server.start();
-
-        logger.getInfo("Выполнение точки входа. Старт программы");
-
-
     }
-
 }
 
 

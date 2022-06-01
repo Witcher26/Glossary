@@ -4,6 +4,7 @@ import com.google.gson.*;
 import ru.zvezdilin.javacore.myPetProject.todos.classes.Todos;
 import ru.zvezdilin.javacore.myPetProject.todos.languageObjects.English;
 import ru.zvezdilin.javacore.myPetProject.todos.languageObjects.Language;
+import ru.zvezdilin.javacore.myPetProject.todos.languageObjects.Type;
 import ru.zvezdilin.javacore.myPetProject.todos.loggerClass.MySingletonLogger;
 
 import java.io.*;
@@ -51,78 +52,60 @@ public class TodoServer {
 
 //            while (true) {  //TODO прописать условие выполнения бесконечного цикла или метод выхода из цикла
 
-                //TODO ожидание команды со сторны client
+            //TODO ожидание команды со сторны client
 
 
-                JsonElement rootNode = JsonParser.parseString(requestFromClientStringInJson);
-                logger.getInfo("получение rootNode при парсинге: " + rootNode.toString());
+            JsonElement rootNode = JsonParser.parseString(requestFromClientStringInJson);
+            logger.getInfo("получение rootNode при парсинге: " + rootNode.toString());
 
-                JsonObject details = rootNode.getAsJsonObject();
-                logger.getInfo("получение details при парсинге: " + details.toString());
+            JsonObject details = rootNode.getAsJsonObject();
+            logger.getInfo("получение details при парсинге: " + details.toString());
 
-                String type = details.get("type").getAsString();
-                logger.getInfo("получение type: " + type);
+            String type = details.get("type").getAsString();
+            logger.getInfo("получение type: " + type);
 
-                String languageInJson = details.get("task").getAsString();
-                logger.getInfo("получение task: " + languageInJson);
+            String languageInJson = details.get("task").getAsString();
+            logger.getInfo("получение task: " + languageInJson);
 
 
-                switch (type) {
-                    case "ADD":
-                        Language language = jsonToEnglishLanguage(languageInJson);//TODO преобразовываем строки json в объект language, надо проверять
-                        logger.getInfo("создание экземпляра Language в условном операторе switch" + language.toString());
+            switch (type) {
+                case "ADD":
+                    Language language = jsonToEnglishLanguage(languageInJson);// преобразовываем строку json в объект language
+                    logger.getInfo("создание экземпляра Language в условном операторе switch: " + language.toString());
 
-                        todos.addTask(language);  //TODO преобразование в объект, надо смотреть JSON, надо проверять
-                        logger.getInfo("добавление в хранилище через addTAsk" + todos.getAllTasks());
+                    todos.addTask(language);
+                    logger.getInfo("Добавлено слово: " + language.getWord());
+                    logger.getInfo("добавление в хранилище через addTAsk, вывод всех: " + todos.getAllTasks());
+                    break;
 
-                        System.out.println("Добавлено слово: " + language.getWord());
-                        break;
-                    case ("REMOVE"):
-                        todos.removeTask(" "); //TODO преобразование в объект, через JSON, надо проверять
-                        break;
-                    case ("getAllTasks"):
-                        todos.getAllTasks();
-                        break;
-                }
+                case ("REMOVE"):
+                    todos.removeTask(" "); //удаляем по строке
+                    break;
+
+                case ("GETALLTASKS"):
+                    todos.getAllTasks();
+                    break;
+            }
 //            }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public static Language jsonToEnglishLanguage(String json) {  //TODO только для анг. языка, использвоать return gson.fromJson(json,Language.class); не получается
+    public static Language jsonToEnglishLanguage(String json) {  //TODO только для анг. языка, использвоать return gson.fromJson(json,Type.class <? extend Language.class>) не получается
         Gson gson = new GsonBuilder().create();
         return gson.fromJson(json, English.class);
+
     }
 }
 
-
-//                switch (type) {
-//                        case "ADD":
-//                        Language language = jsonToLanguage(languageInJson);//TODO преобразовываем строки json в объект language, надо проверять
-//                        todos.addTask(language);  //TODO преобразование в объект, надо смотреть JSON, надо проверять
-//                        System.out.println("Добавлено слово: " + language.getWord());
-//                        break;
-//                        case ("REMOVE"):
-//                        todos.removeTask(" "); //TODO преобразование в объект, через JSON, надо проверять
-//                        break;
-//                        case ("getAllTasks"):
-//                        todos.getAllTasks();
-//                        break;
-//default:
-//        Language language1 = jsonToLanguage(languageInJson);//
-//        todos.addTask(language1);  //TODO преобразование в объект, надо смотреть JSON, надо проверять
-//        System.out.println("Добавлено слово: " + language1.getWord());
-//        break;
-//
-////                        System.out.println(languageInJson);
+//    public static Language createNewWord(String word, String translation, Type type) {
+//        Language language = null;
+//        if (type == Type.EN) {
+//            English english = new English(word, translation);
+//            language = english;
 //        }
-
-
-//{ "type": "ADD", "task": "Название задачи" }
-//{ "type": "ADD", "task": {"id":0,"word":"Unit","translation":"единица измерения","priority":"LOW" }"}
-
-
-
+//        return language;
+//    }
 
 

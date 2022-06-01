@@ -1,7 +1,7 @@
 package ru.zvezdilin.javacore.myPetProject.todos.languageObjects;
 
 public enum Priority {
-    absence,
+    MISS,
     LOW,
     MEDIUM,
     HIGH
