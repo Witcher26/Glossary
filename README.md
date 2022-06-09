@@ -1,4 +1,4 @@
-#  Мой словарь:
+#  Мой словарь
 API пользовательского словаря
 # TODOs
 Центральным для логики программы компонентом будет [класс Todos](https://github.com/netology-code/pcs-javacore/blob/main/src/main/java/ru/netology/javacore/Todos.java). Объект этого класса должен содержать в себе набор задач, добавленных в систему. 
