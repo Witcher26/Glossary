@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.database;
+package com.zvezdilin.Glossary.database.mongoDB;
 
 import com.zvezdilin.Glossary.model.config.Locale;
 import com.zvezdilin.Glossary.model.config.Priority;
@@ -38,19 +38,12 @@ public class DatabaseHelper {
     }
 
     public static BaseEntity fromDoc(Document document) {
-
-        if (document.get("type").equals(Client.class.toString())) {
-            String id = (String) document.get("clientID");
-            return new Client(id);
-        }
-
-        if (document.get("type").equals(English.class.toString())) {
-//            String _id = (String) document.get("_id");
+        if (document.get("type").equals("EN")) {
             String localDateTime = (String) document.get("localDateTime");
             String word = (String) document.get("word");
             String translation = (String) document.get("translation");
             Locale locale = Locale.EN;
-            Priority priority = (Priority) document.get("priority");
+            Priority priority = (Priority.getValue(document.get("priority").toString()));
             String type = (String) document.get("type");
             return new English(localDateTime, locale, word, translation, type, priority);
         }

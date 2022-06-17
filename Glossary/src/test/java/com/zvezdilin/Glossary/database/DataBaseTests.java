@@ -1,8 +1,12 @@
 package com.zvezdilin.Glossary.database;
 
+import com.zvezdilin.Glossary.database.mongoDB.DatabaseAdapter;
+import com.zvezdilin.Glossary.model.entity.BaseEntity;
 import com.zvezdilin.Glossary.model.entity.English;
-import com.zvezdilin.Glossary.model.entity.Language;
 import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataBaseTests {
     @BeforeAll
@@ -37,5 +41,22 @@ public class DataBaseTests {
 
         //assert
         Assertions.assertEquals(true,result);
+    }
+
+    @Test
+    public void testReadEntityInDatabaseAdapter(){
+        //arrange
+        DatabaseAdapter adapter = DatabaseAdapter.getInstance();
+        English unit = new English("summary", "резюмировать");
+        adapter.createEntity(unit);
+        List<BaseEntity> expect = new ArrayList<>();
+        expect.add((new English("summary", "резюмировать")));
+
+
+        ///act
+        List<BaseEntity> result = adapter.readEntity();
+
+        //assert
+        Assertions.assertEquals(expect,result);
     }
 }

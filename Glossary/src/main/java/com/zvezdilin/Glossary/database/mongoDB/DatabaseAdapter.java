@@ -1,10 +1,10 @@
-package com.zvezdilin.Glossary.database;
+package com.zvezdilin.Glossary.database.mongoDB;
 
 import com.mongodb.client.*;
+import com.zvezdilin.Glossary.database.Database;
 import com.zvezdilin.Glossary.model.entity.BaseEntity;
 import com.zvezdilin.Glossary.model.entity.Client;
 import org.bson.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class DatabaseAdapter implements Database {
         return instance;
     }
 
-    @Autowired
+//    @Autowired
     @Override
     public boolean createEntity(BaseEntity baseEntity) {  //TODO client не нужон?
         try (MongoClient mongoClient = MongoClients.create()) {
@@ -36,27 +36,25 @@ public class DatabaseAdapter implements Database {
             logger.warning("Неудачная попытка добавления объекта в базу данных: " + e.getMessage());
             return false;
         }
-//        return false;
     }
 
 
     @Override
-    public List<BaseEntity> readEntity(Client client, Class cls) {  //TODO client не нужон
-//        List<BaseEntity> result = new ArrayList<>();
-//        try (MongoClient mongoClient = MongoClients.create()) {
-//            MongoDatabase database = mongoClient.getDatabase(client.getClientID());
-//            MongoCollection<Document> collection = database.getCollection(cls.toString());
-//            MongoCursor<Document> cursor = collection.find().cursor();
-//            while (cursor.hasNext()) {
-//                Document document = cursor.next();
-//                result.add(DatabaseHelper.fromDoc(document));
-//            }
-//            return result;
-//        } catch (Exception e) {
-//            logger.warning("Ошибка чтения: " + e.getMessage());
-//            return null;
-//        }
-        return null;
+    public List<BaseEntity> readEntity() {  //TODO client не нужон
+        List<BaseEntity> result = new ArrayList<>();
+        try (MongoClient mongoClient = MongoClients.create()) {
+            MongoDatabase database = mongoClient.getDatabase("Glossary");
+            MongoCollection<Document> collection = database.getCollection("English");
+            MongoCursor<Document> cursor = collection.find().cursor();
+            while (cursor.hasNext()) {
+                Document document = cursor.next();
+                result.add(DatabaseHelper.fromDoc(document));
+            }
+            return result;
+        } catch (Exception e) {
+            logger.warning("Ошибка чтения: " + e.getMessage());
+            return null;
+        }
     }
 
     @Override

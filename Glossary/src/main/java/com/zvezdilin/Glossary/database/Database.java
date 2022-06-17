@@ -8,7 +8,7 @@ import java.util.List;
 public interface Database {
     public boolean createEntity(BaseEntity baseEntity);
 
-    public List<BaseEntity> readEntity(Client client, Class cls);
+    public List<BaseEntity> readEntity();
 
     public boolean updateEntity(BaseEntity baseEntity, Client client);
 
