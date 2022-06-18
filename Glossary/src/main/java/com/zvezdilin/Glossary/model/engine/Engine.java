@@ -1,9 +1,7 @@
 package com.zvezdilin.Glossary.model.engine;
 
 import com.google.gson.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Logger;
 
@@ -19,8 +17,8 @@ public class Engine {
     String locale = "";
     String word = "";
 
-    @GetMapping("start")
-    public void start(String requestFromClientInJson) {
+    @PostMapping("start/{requestFromClientInJson}")
+    public void start(@PathVariable("requestFromClientInJson") String requestFromClientInJson) {
         logger.info("Start engine server...");
         TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
 

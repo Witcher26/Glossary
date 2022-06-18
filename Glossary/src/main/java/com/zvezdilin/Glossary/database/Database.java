@@ -10,7 +10,7 @@ public interface Database {
 
     public List<BaseEntity> readEntity();
 
-    public boolean updateEntity(BaseEntity baseEntity, Client client);
+    public boolean updateEntity(BaseEntity baseEntity);
 
-    public boolean deleteEntity(Client client, Class cls);
+    public boolean deleteEntity(String word);
 }

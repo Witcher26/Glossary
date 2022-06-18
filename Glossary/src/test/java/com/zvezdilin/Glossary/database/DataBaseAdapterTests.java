@@ -8,7 +8,7 @@ import org.junit.jupiter.api.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataBaseTests {
+public class DataBaseAdapterTests {
     @BeforeAll
     public static void beforeAllMethod() {
         System.out.println("BeforeAll call");
@@ -31,7 +31,7 @@ public class DataBaseTests {
 
 
     @Test
-    public void testCreateInDatabase(){
+    public void testCreateInDatabaseAdapter(){
         //arrange
         DatabaseAdapter adapter = DatabaseAdapter.getInstance();
         English unit = new English("summary", "резюмировать");
@@ -59,4 +59,22 @@ public class DataBaseTests {
         //assert
         Assertions.assertEquals(expect,result);
     }
+
+    @Test
+    public void testUpdateEntityInDatabaseAdapter(){
+        //arrange
+        DatabaseAdapter adapter = DatabaseAdapter.getInstance();
+        English unit = new English("summary", "резюмировать");
+        adapter.createEntity(unit);
+        List<BaseEntity> expect = new ArrayList<>();
+        expect.add((new English("summary", "резюмировать")));
+
+
+        ///act
+        List<BaseEntity> result = adapter.readEntity();
+
+        //assert
+        Assertions.assertEquals(expect,result);
+    }
+
 }

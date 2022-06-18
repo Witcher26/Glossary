@@ -44,8 +44,7 @@ public class DatabaseHelper {
             String translation = (String) document.get("translation");
             Locale locale = Locale.EN;
             Priority priority = (Priority.getValue(document.get("priority").toString()));
-            String type = (String) document.get("type");
-            return new English(localDateTime, locale, word, translation, type, priority);
+            return new English(localDateTime, locale, word, translation, priority);
         }
         return null;
     }

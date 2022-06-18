@@ -55,8 +55,9 @@ public class TodosLanguageStorageConnector implements Storage {
         }
     }
 
+    @PostMapping("removeWord")
     @Override
-    public void removeWord(String wordToRemove) {
+    public void removeWord(@RequestParam("wordToRemove") String wordToRemove) {
         if (wordToRemove == null) {
             logger.warning("в метод \"removeWord\" не передали слово для удаления");
             throw new NullPointerException("Слово имеет значение null");

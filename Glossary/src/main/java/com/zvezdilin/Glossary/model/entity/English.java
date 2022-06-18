@@ -18,8 +18,8 @@ public class English extends Language {
         this.locale = Locale.EN;
     }
 
-    public English(String localDateTime, Locale locale, String word, String translation, String type, Priority priority) {
-        super(localDateTime, locale, word,translation, type, priority);
+    public English(String localDateTime, Locale locale, String word, String translation, Priority priority) {
+        super(localDateTime, locale, word,translation, priority);
     }
 
     @Override

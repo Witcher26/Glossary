@@ -4,6 +4,7 @@ import com.mongodb.client.*;
 import com.zvezdilin.Glossary.database.Database;
 import com.zvezdilin.Glossary.model.entity.BaseEntity;
 import com.zvezdilin.Glossary.model.entity.Client;
+import com.zvezdilin.Glossary.model.entity.English;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -58,24 +59,32 @@ public class DatabaseAdapter implements Database {
     }
 
     @Override
-    public boolean updateEntity(BaseEntity baseEntity, Client client) {
-//        if (baseEntity instanceof Product)
-//            return false;
-//
-//        if (baseEntity instanceof MonitoringList) {
-//            deleteEntity(client, MonitoringList.class);
-//            createEntity(baseEntity, client);
-//            return true;
+    public boolean updateEntity(BaseEntity baseEntity) {
+//        List<BaseEntity> result = new ArrayList<>();
+//        try (MongoClient mongoClient = MongoClients.create()) {
+//            MongoDatabase database = mongoClient.getDatabase("Glossary");
+//            MongoCollection<Document> collection = database.getCollection("English");
+//            collection.updateOne
+//            MongoCursor<Document> cursor = collection.find().cursor();
+//            while (cursor.hasNext()) {
+//                Document document = cursor.next();
+//                result.add(DatabaseHelper.fromDoc(document));
+//            }
+//            return result;
+//        } catch (Exception e) {
+//            logger.warning("Ошибка чтения: " + e.getMessage());
+//            return null;
 //        }
         return false;
     }
 
     @Override
-    public boolean deleteEntity(Client client, Class cls) {
+    public boolean deleteEntity(String word) {
 //        try (MongoClient mongoClient = MongoClients.create()) {
-//            MongoDatabase database = mongoClient.getDatabase(client.getClientID());
-//            MongoCollection<Document> collection = database.getCollection(cls.toString());
-//            collection.drop();
+//            MongoDatabase database = mongoClient.getDatabase("Glossary");
+//            MongoCollection<Document> collection = database.getCollection("English");
+//            collection.find(word);
+//            collection.deleteOne(new Document().get(baseEntity))
 //            return true;
 //        } catch (Exception e) {
 //            logger.warning("Не удалось удалить коллекцию" + e.getMessage());
@@ -84,15 +93,4 @@ public class DatabaseAdapter implements Database {
         return false;
     }
 
-    public List<Client> getAllClients() {
-//        try (var mongoClient = MongoClients.create()) {
-//            MongoIterable<String> allNames = mongoClient.listDatabaseNames();
-//            List<Client> clients = new ArrayList<>();
-//            for (String name : allNames) {
-//                clients.add(new Client(name));
-//            }
-//            return clients;
-//        }
-        return null;
-    }
 }

@@ -42,12 +42,12 @@ public abstract class Language implements BaseEntity {
         this.priority = Priority.LOW;
     }
 
-    public Language(String localDateTime, Locale locale, String word, String translation, String type, Priority priority) {
+    public Language(String localDateTime, Locale locale, String word, String translation, Priority priority) {
         this.localDateTime = localDateTime;
         this.locale = locale;
         this.word = word;
         this.translation = translation;
-        this.type = type;
+        this.type = Language.class.toString();
         this.priority = priority;
     }
 
@@ -104,13 +104,16 @@ public abstract class Language implements BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Language language = (Language) o;
-        return id == language.id && Objects.equals(localDateTime, language.localDateTime) && Objects.equals(locale, language.locale)
-                && Objects.equals(word, language.word) && Objects.equals(translation, language.translation) && Objects.equals(type, language.type);
+        return id == language.id &&
+                Objects.equals(locale, language.locale) &&
+                Objects.equals(word, language.word) &&
+                Objects.equals(translation, language.translation) &&
+                Objects.equals(type, language.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, localDateTime, locale, word, translation, type);
+        return Objects.hash(id, locale, word, translation, type);
     }
 }
 
