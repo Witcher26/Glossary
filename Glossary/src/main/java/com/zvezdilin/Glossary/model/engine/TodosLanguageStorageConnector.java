@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 @RestController // без этой аннотации не работает
 @RequestMapping("api/storage")
-public class TodosLanguageStorageConnector implements Storage {
+public class TodosLanguageStorageConnector implements StorageOfWord {
     private static TodosLanguageStorageConnector connector;
     private static Map<String, Language> wordsMap;
 
@@ -31,7 +31,7 @@ public class TodosLanguageStorageConnector implements Storage {
 
     @PostMapping("addWord")
     @Override
-    public void addWord(@RequestParam("word") String word, @RequestParam("translate") String translate, @RequestParam("locale") String locale) {
+    public boolean addWord(@RequestParam("word") String word, @RequestParam("translate") String translate, @RequestParam("locale") String locale) {
         Language newWord = null;
 
         if (word == null || translate == null) {
@@ -52,12 +52,14 @@ public class TodosLanguageStorageConnector implements Storage {
         } else {
             wordsMap.put(strToLowCase, newWord);
             logger.info("Слово " + newWord.getWord() + " успешно добавлено в словарь");
+            return true;
         }
+        return false;
     }
 
     @PostMapping("removeWord")
     @Override
-    public void removeWord(@RequestParam("wordToRemove") String wordToRemove) {
+    public boolean removeWord(@RequestParam("wordToRemove") String wordToRemove) {
         if (wordToRemove == null) {
             logger.warning("в метод \"removeWord\" не передали слово для удаления");
             throw new NullPointerException("Слово имеет значение null");
@@ -66,17 +68,12 @@ public class TodosLanguageStorageConnector implements Storage {
         if (wordsMap.containsKey(strToLowCase)) {
             System.out.println("Слово " + strToLowCase + " удалено");
             wordsMap.remove(strToLowCase);
+            return true;
         } else {
             logger.warning("Нет совпадений");
         }
+        return false;
     }
-
-
-//    @Override
-//    public int compare(StringBuilder st1, StringBuilder st2){
-//        return st1.toString().compareTo(st2.toString());
-//    }
-
 
     @GetMapping("getAllWords")
     @Override
@@ -94,4 +91,9 @@ public class TodosLanguageStorageConnector implements Storage {
         }
         return sb.toString();
     }
+
+    //    @Override
+//    public int compare(StringBuilder st1, StringBuilder st2){
+//        return st1.toString().compareTo(st2.toString());
+//    }
 }

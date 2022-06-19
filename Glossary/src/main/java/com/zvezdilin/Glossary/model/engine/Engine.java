@@ -52,16 +52,18 @@ public class Engine {
         try {
             switch (target) {
                 case "ADD":
-                    connector.addWord(word, translation, locale);
-                    result = "слово " + word + " добавлено";
+                    boolean tmp = connector.addWord(word, translation, locale);
+                    result = String.valueOf(tmp);
                     break;
                 case ("REMOVE"):
-                    connector.removeWord(word);
-                    result = "слово " + word + " удалено";
+                    tmp = connector.removeWord(word);
+                    result = String.valueOf(tmp);
                     break;
                 case ("GETALLTASKS"):
                     result = "список всех слов: \n" + connector.getAllWords();
                     break;
+                default:
+                    result = "Неверный синтаксис запроса";
             }
         } catch (Exception e) {
             logger.warning("Ошибка в engine в switch/case");
