@@ -1,6 +1,7 @@
 package com.zvezdilin.Glossary.database;
 
 import com.zvezdilin.Glossary.database.mongoDB.DatabaseAdapter;
+import com.zvezdilin.Glossary.model.engine.TodosLanguageStorageConnector;
 import com.zvezdilin.Glossary.model.entity.BaseEntity;
 import com.zvezdilin.Glossary.model.entity.English;
 import org.junit.jupiter.api.*;
@@ -31,50 +32,73 @@ public class DataBaseAdapterTests {
 
 
     @Test
-    public void testCreateInDatabaseAdapter(){
+    public void testCreateDatabaseAdapter() {
         //arrange
         DatabaseAdapter adapter = DatabaseAdapter.getInstance();
-        English unit = new English("summary", "резюмировать");
+        TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
+
+        connector.addWord("unit", "единица измерения", "EN");
+        connector.addWord("summary", "резюмировать", "EN");
+        connector.addWord("rejected", "отклоненный", "EN");
+        connector.addWord("related", "связанный", "EN");
+        connector.addWord("counterpart", "копия", "EN");
+        connector.addWord("enhancement", "доработка", "EN");
 
         ///act
-        boolean result = adapter.createEntity(unit);
+        boolean result = adapter.createDatabase();
+
+        //assert
+        Assertions.assertEquals(true, result);
+    }
+
+    @Test
+    public void testReadDatabaseAdapter() {
+        //arrange
+        DatabaseAdapter adapter = DatabaseAdapter.getInstance();
+        TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
+
+        connector.addWord("unit", "единица измерения", "EN");
+        connector.addWord("summary", "резюмировать", "EN");
+        connector.addWord("rejected", "отклоненный", "EN");
+        connector.addWord("related", "связанный", "EN");
+        connector.addWord("counterpart", "копия", "EN");
+        connector.addWord("enhancement", "доработка", "EN");
+
+        adapter.createDatabase();
+//        List<BaseEntity> expect = new ArrayList<>();
+//        expect.add((new English("summary", "резюмировать")));
+
+        ///act
+        boolean result = adapter.readDatabase();
+
+        //assert
+        Assertions.assertEquals(true, result);
+    }
+
+    @Test
+    public void testUpdateDatabaseAdapter() {
+        //arrange
+        DatabaseAdapter adapter = DatabaseAdapter.getInstance();
+        TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
+
+        ///act
+        boolean result= adapter.updateDatabase();
 
         //assert
         Assertions.assertEquals(true,result);
     }
 
     @Test
-    public void testReadEntityInDatabaseAdapter(){
+    public void testDeleteDataBaseAdapter() {
         //arrange
         DatabaseAdapter adapter = DatabaseAdapter.getInstance();
-        English unit = new English("summary", "резюмировать");
-        adapter.createEntity(unit);
-        List<BaseEntity> expect = new ArrayList<>();
-        expect.add((new English("summary", "резюмировать")));
+        TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
 
-
-        ///act
-        List<BaseEntity> result = adapter.readEntity();
+        //act
+        boolean result = adapter.deleteDatabase();
 
         //assert
-        Assertions.assertEquals(expect,result);
-    }
-
-    @Test
-    public void testUpdateEntityInDatabaseAdapter(){
-        //arrange
-        DatabaseAdapter adapter = DatabaseAdapter.getInstance();
-        English unit = new English("summary", "резюмировать");
-        adapter.createEntity(unit);
-        List<BaseEntity> expect = new ArrayList<>();
-        expect.add((new English("summary", "резюмировать")));
-
-
-        ///act
-        List<BaseEntity> result = adapter.readEntity();
-
-        //assert
-        Assertions.assertEquals(expect,result);
+        Assertions.assertEquals(true, result);
     }
 
 }

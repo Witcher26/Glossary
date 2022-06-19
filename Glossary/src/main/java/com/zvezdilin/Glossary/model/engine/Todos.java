@@ -1,9 +1,9 @@
 package com.zvezdilin.Glossary.model.engine;
 
 public class Todos {
-    private final StorageOfWord storage;
+    private final Storage storage;
 
-    public Todos(StorageOfWord storage) {
+    public Todos(Storage storage) {
         this.storage = storage;
     }
 

@@ -1,5 +1,7 @@
 package com.zvezdilin.Glossary;
 
+import com.zvezdilin.Glossary.database.Database;
+import com.zvezdilin.Glossary.database.mongoDB.DatabaseAdapter;
 import com.zvezdilin.Glossary.model.engine.Engine;
 import com.zvezdilin.Glossary.model.engine.TodosLanguageStorageConnector;
 import org.springframework.boot.SpringApplication;
@@ -13,5 +15,8 @@ public class GlossaryApplication {
 		SpringApplication.run(GlossaryApplication.class, args);
 		TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
 		Engine engine = new Engine();
+		Database database = DatabaseAdapter.getInstance();
+
+
 	}
 }

@@ -16,7 +16,7 @@ public class DatabaseHelper {
     static Logger logger = Logger.getLogger("DataBaseHelper");
 
     public static Document toDoc(BaseEntity baseEntity) {
-        if (baseEntity instanceof Language) {
+        if (baseEntity instanceof English) {
             return new Document(Map.of(
                     "_id", ((Language) baseEntity).getId(),
                     "localDateTime", ((Language) baseEntity).getLocalDateTime(),
@@ -24,7 +24,7 @@ public class DatabaseHelper {
                     "translation", ((Language) baseEntity).getTranslation(),
                     "locale", ((Language) baseEntity).getLocale(),
                     "priority", ((Language) baseEntity).getPriority(),
-                    "type", ((Language) baseEntity).getType()
+                    "type",  baseEntity.getType()
             ));
         }
 
@@ -38,7 +38,8 @@ public class DatabaseHelper {
     }
 
     public static BaseEntity fromDoc(Document document) {
-        if (document.get("type").equals("EN")) {
+        if (document.get("type").equals("English")) {
+            String type = (String)document.get("type");;
             String localDateTime = (String) document.get("localDateTime");
             String word = (String) document.get("word");
             String translation = (String) document.get("translation");

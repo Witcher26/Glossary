@@ -1,16 +1,17 @@
 package com.zvezdilin.Glossary.database;
 
+import com.zvezdilin.Glossary.model.engine.Storage;
 import com.zvezdilin.Glossary.model.entity.BaseEntity;
 import com.zvezdilin.Glossary.model.entity.Client;
 
 import java.util.List;
 
 public interface Database {
-    public boolean createEntity(BaseEntity baseEntity);
+    public boolean createDatabase();
 
-    public List<BaseEntity> readEntity();
+    public boolean readDatabase();
 
-    public boolean updateEntity(BaseEntity baseEntity);
+    public boolean updateDatabase();
 
-    public boolean deleteEntity(String word);
+    public boolean deleteDatabase();
 }

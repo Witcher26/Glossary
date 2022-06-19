@@ -87,7 +87,7 @@ public abstract class Language implements BaseEntity {
 
     @Override
     public String getType() {
-        return this.locale.toString();
+        return this.type;
     }
 
     @Override

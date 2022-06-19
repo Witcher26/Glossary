@@ -20,6 +20,7 @@ public class English extends Language {
 
     public English(String localDateTime, Locale locale, String word, String translation, Priority priority) {
         super(localDateTime, locale, word,translation, priority);
+        this.type = "English.class";
     }
 
     @Override
@@ -38,6 +39,11 @@ public class English extends Language {
         } else {
             return true;
         }
+    }
+
+    @Override
+    public String getType() {
+        return this.type;
     }
 }
 

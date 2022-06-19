@@ -1,17 +1,20 @@
 package com.zvezdilin.Glossary.model.engine;
 
+import com.zvezdilin.Glossary.model.entity.BaseEntity;
 import com.zvezdilin.Glossary.model.entity.English;
 import com.zvezdilin.Glossary.model.entity.Language;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
 
 @RestController // без этой аннотации не работает
 @RequestMapping("api/storage")
-public class TodosLanguageStorageConnector implements StorageOfWord {
+public class TodosLanguageStorageConnector implements Storage {
     private static TodosLanguageStorageConnector connector;
     private static Map<String, Language> wordsMap;
 
@@ -90,6 +93,22 @@ public class TodosLanguageStorageConnector implements StorageOfWord {
             sb.append(entry.getValue() + "\n");
         }
         return sb.toString();
+    }
+
+
+    public List<BaseEntity> listBaseEntity(){
+        List<BaseEntity> list = new ArrayList<>();
+        for(Map.Entry<String, Language> entry: wordsMap.entrySet()){
+            list.add(entry.getValue());
+        }
+        return list;
+    }
+
+    public void addBaseEntity(BaseEntity baseEntity){
+        Language language = (Language) baseEntity;
+        if(!wordsMap.containsKey(language.getWord())){
+            wordsMap.put(language.getWord(), language);
+        }
     }
 
     //    @Override

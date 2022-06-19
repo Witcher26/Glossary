@@ -1,6 +1,6 @@
 package com.zvezdilin.Glossary.model.engine;
 
-public interface StorageOfWord {
+public interface Storage {
     /**
      * Добавление слов в хранилище. Хралище должно быть в одном
      * экземпляре(паттерн Singleton).
