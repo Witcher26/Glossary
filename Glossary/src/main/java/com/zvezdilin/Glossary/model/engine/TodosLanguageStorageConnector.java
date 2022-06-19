@@ -15,7 +15,7 @@ public class TodosLanguageStorageConnector implements Storage {
     private static TodosLanguageStorageConnector connector;
     private static Map<String, Language> wordsMap;
 
-    Logger logger = Logger.getLogger("TodosLanguageStorageAdapter class");
+    Logger logger = Logger.getLogger("TodosLanguageStorageConnector class");
 
     private TodosLanguageStorageConnector() {
 
@@ -82,7 +82,7 @@ public class TodosLanguageStorageConnector implements Storage {
     @Override
     public String getAllWords() {
         if (wordsMap.isEmpty()) {
-            System.out.println("Слова отсутствуют в списке");
+            logger.warning("Слова отсутствуют в списке");
             return "Слова отсутствуют в списке";
         }
 

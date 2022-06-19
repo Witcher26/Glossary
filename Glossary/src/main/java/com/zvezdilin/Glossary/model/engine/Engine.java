@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping("api/engine")
+@RequestMapping("api/engine/v1/")
 public class Engine {
 
     public Engine() {
@@ -17,8 +17,10 @@ public class Engine {
     String locale = "";
     String word = "";
 
-    @PostMapping("start/{requestFromClientInJson}")
-    public void start(@PathVariable("requestFromClientInJson") String requestFromClientInJson) {
+    @PostMapping("start")
+    public String start(@RequestBody String requestFromClientInJson) {
+        String result = "empty str";
+
         logger.info("Start engine server...");
         TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
 
@@ -51,16 +53,19 @@ public class Engine {
             switch (target) {
                 case "ADD":
                     connector.addWord(word, translation, locale);
+                    result = "слово " + word + " добавлено";
                     break;
                 case ("REMOVE"):
                     connector.removeWord(word);
+                    result = "слово " + word + " удалено";
                     break;
                 case ("GETALLTASKS"):
-                    connector.getAllWords();
+                    result = "список всех слов: \n" + connector.getAllWords();
                     break;
             }
         } catch (Exception e) {
             logger.warning("Ошибка в engine в switch/case");
         }
+        return result;
     }
 }
