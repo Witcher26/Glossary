@@ -7,9 +7,10 @@ import com.zvezdilin.Glossary.model.exeptionClass.BadDataException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.Objects;
 
-public abstract class Language implements BaseEntity {
+public abstract class Language implements BaseEntity, Comparator<Language> {
     protected int id;
     protected String localDateTime;
     protected Locale locale;
@@ -56,7 +57,7 @@ public abstract class Language implements BaseEntity {
     }
 
     public void editWord(String word) throws BadDataException {
-        if(checkEditWord(word)) {
+        if (checkEditWord(word)) {
             this.word = word;
         }
     }
@@ -66,8 +67,8 @@ public abstract class Language implements BaseEntity {
     }
 
     public void editTranslation(String translation) throws BadDataException {
-        if(checkEditWord(translation)) {
-            this.translation=translation;
+        if (checkEditWord(translation)) {
+            this.translation = translation;
         }
     }
 
@@ -114,6 +115,11 @@ public abstract class Language implements BaseEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, locale, word, translation, type);
+    }
+
+    @Override
+    public int compare(Language o1, Language o2) {
+        return o1.getWord().compareTo(o2.getWord());
     }
 }
 

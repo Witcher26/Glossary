@@ -19,7 +19,7 @@ public class English extends Language {
     }
 
     public English(String localDateTime, Locale locale, String word, String translation, Priority priority) {
-        super(localDateTime, locale, word,translation, priority);
+        super(localDateTime, locale, word, translation, priority);
         this.type = "English.class";
     }
 
@@ -45,6 +45,7 @@ public class English extends Language {
     public String getType() {
         return this.type;
     }
+
 }
 
 //    String[] words = text.split("\\P{IsAlphabetic}+"); //алфавитные символы
