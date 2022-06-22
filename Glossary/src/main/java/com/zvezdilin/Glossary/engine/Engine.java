@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.model.engine;
+package com.zvezdilin.Glossary.engine;
 
 import com.google.gson.*;
 import org.springframework.web.bind.annotation.*;

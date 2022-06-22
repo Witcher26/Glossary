@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.model.engine;
+package com.zvezdilin.Glossary.engine;
 
 public interface Storage {
     /**

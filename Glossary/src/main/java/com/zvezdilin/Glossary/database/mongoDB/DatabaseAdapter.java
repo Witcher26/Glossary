@@ -2,12 +2,8 @@ package com.zvezdilin.Glossary.database.mongoDB;
 
 import com.mongodb.client.*;
 import com.zvezdilin.Glossary.database.Database;
-import com.zvezdilin.Glossary.model.engine.Storage;
-import com.zvezdilin.Glossary.model.engine.TodosLanguageStorageConnector;
+import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
 import com.zvezdilin.Glossary.model.entity.BaseEntity;
-import com.zvezdilin.Glossary.model.entity.Client;
-import com.zvezdilin.Glossary.model.entity.English;
-import com.zvezdilin.Glossary.model.entity.Language;
 import org.bson.Document;
 
 import java.util.*;

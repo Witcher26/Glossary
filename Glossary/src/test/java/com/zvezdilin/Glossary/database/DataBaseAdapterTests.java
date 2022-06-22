@@ -1,13 +1,8 @@
 package com.zvezdilin.Glossary.database;
 
 import com.zvezdilin.Glossary.database.mongoDB.DatabaseAdapter;
-import com.zvezdilin.Glossary.model.engine.TodosLanguageStorageConnector;
-import com.zvezdilin.Glossary.model.entity.BaseEntity;
-import com.zvezdilin.Glossary.model.entity.English;
+import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
 import org.junit.jupiter.api.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DataBaseAdapterTests {
     @BeforeAll

@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.model.engine;
+package com.zvezdilin.Glossary.engine;
 
 public class Todos {
     private final Storage storage;
