@@ -1,13 +1,13 @@
 package com.zvezdilin.Glossary.database;
 
-import com.zvezdilin.Glossary.controller.confing.ConnectionSettings;
-import com.zvezdilin.Glossary.controller.confing.DatabaseConfig;
-import com.zvezdilin.Glossary.database.postgresQL.ProfileDao;
-import com.zvezdilin.Glossary.database.postgresQL.ProfileDaoImpl;
-import com.zvezdilin.Glossary.database.postgresQL.ProfileMapper;
-import com.zvezdilin.Glossary.database.postgresQL.ProfileServiceImpl;
+//import com.zvezdilin.Glossary.controller.confing.ConnectionSettings;
+//import com.zvezdilin.Glossary.controller.confing.DatabaseConfig;
+//import com.zvezdilin.Glossary.database.postgresQL.ProfileDao;
+//import com.zvezdilin.Glossary.database.postgresQL.ProfileDaoImpl;
+//import com.zvezdilin.Glossary.database.postgresQL.ProfileMapper;
+//import com.zvezdilin.Glossary.database.postgresQL.ProfileServiceImpl;
 import org.junit.jupiter.api.*;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+//import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class PostrTest {
     @BeforeAll

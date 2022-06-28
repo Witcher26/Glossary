@@ -1,6 +1,6 @@
-package com.zvezdilin.Glossary.database.postgresQL;
-
-public interface ProfileService {
-
-    Profile getProfile(int personId);
-}
+//package com.zvezdilin.Glossary.database.postgresQL;
+//
+//public interface ProfileService {
+//
+//    Profile getProfile(int personId);
+//}
