@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.engine;
+package com.zvezdilin.Glossary.engineApi;
 
 import com.zvezdilin.Glossary.model.entity.BaseEntity;
 import com.zvezdilin.Glossary.model.entity.English;
@@ -16,11 +16,11 @@ import java.util.logging.Logger;
 @RequestMapping("api/storage")
 public class TodosLanguageStorageConnector implements Storage {
     private static TodosLanguageStorageConnector connector;
-    private static Map<String, Language> wordsMap;
+    protected static Map<String, Language> wordsMap;
 
     Logger logger = Logger.getLogger("TodosLanguageStorageConnector class");
 
-    private TodosLanguageStorageConnector() {
+    protected TodosLanguageStorageConnector() {
 
     }
 

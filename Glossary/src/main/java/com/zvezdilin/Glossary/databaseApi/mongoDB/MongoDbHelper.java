@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.database.mongoDB;
+package com.zvezdilin.Glossary.databaseApi.mongoDB;
 
 import com.zvezdilin.Glossary.model.config.Locale;
 import com.zvezdilin.Glossary.model.config.Priority;
@@ -11,7 +11,7 @@ import org.bson.Document;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class DatabaseHelper {
+public class MongoDbHelper {
 
     static Logger logger = Logger.getLogger("DataBaseHelper");
 

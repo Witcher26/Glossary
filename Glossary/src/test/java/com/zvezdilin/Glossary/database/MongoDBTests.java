@@ -1,10 +1,10 @@
 package com.zvezdilin.Glossary.database;
 
-import com.zvezdilin.Glossary.database.mongoDB.DatabaseAdapter;
-import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
+import com.zvezdilin.Glossary.databaseApi.mongoDB.MongoDbDao;
+import com.zvezdilin.Glossary.engineApi.TodosLanguageStorageConnector;
 import org.junit.jupiter.api.*;
 
-public class DataBaseAdapterTests {
+public class MongoDBTests {
     @BeforeAll
     public static void beforeAllMethod() {
         System.out.println("BeforeAll call");
@@ -29,7 +29,7 @@ public class DataBaseAdapterTests {
     @Test
     public void testCreateDatabaseAdapter() {
         //arrange
-        DatabaseAdapter adapter = DatabaseAdapter.getInstance();
+        MongoDbDao adapter = MongoDbDao.getInstance();
         TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
 
         connector.addWord("unit", "единица измерения", "EN");
@@ -49,7 +49,7 @@ public class DataBaseAdapterTests {
     @Test
     public void testReadDatabaseAdapter() {
         //arrange
-        DatabaseAdapter adapter = DatabaseAdapter.getInstance();
+        MongoDbDao adapter = MongoDbDao.getInstance();
         TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
 
         connector.addWord("unit", "единица измерения", "EN");
@@ -73,7 +73,7 @@ public class DataBaseAdapterTests {
     @Test
     public void testUpdateDatabaseAdapter() {
         //arrange
-        DatabaseAdapter adapter = DatabaseAdapter.getInstance();
+        MongoDbDao adapter = MongoDbDao.getInstance();
         TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
 
         ///act
@@ -86,7 +86,7 @@ public class DataBaseAdapterTests {
     @Test
     public void testDeleteDataBaseAdapter() {
         //arrange
-        DatabaseAdapter adapter = DatabaseAdapter.getInstance();
+        MongoDbDao adapter = MongoDbDao.getInstance();
         TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
 
         //act

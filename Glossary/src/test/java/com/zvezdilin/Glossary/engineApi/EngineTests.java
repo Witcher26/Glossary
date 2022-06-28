@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.engine;
+package com.zvezdilin.Glossary.engineApi;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

@@ -1,33 +1,33 @@
-package com.zvezdilin.Glossary.database.mongoDB;
+package com.zvezdilin.Glossary.databaseApi.mongoDB;
 
 import com.mongodb.client.*;
-import com.zvezdilin.Glossary.database.Database;
-import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
+import com.zvezdilin.Glossary.databaseApi.DAO;
+import com.zvezdilin.Glossary.engineApi.TodosLanguageStorageConnector;
 import com.zvezdilin.Glossary.model.entity.BaseEntity;
 import org.bson.Document;
 
 import java.util.*;
 import java.util.logging.Logger;
 
-public class DatabaseAdapter implements Database {
+public class MongoDbDao implements DAO {
     private static final Logger logger = Logger.getLogger("DataStorageAdapter class");
-    private static DatabaseAdapter instance;
+    private static MongoDbDao instance;
 
     TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
 
-    private DatabaseAdapter() {
+    private MongoDbDao() {
     }
 
-    public static DatabaseAdapter getInstance() {
+    public static MongoDbDao getInstance() {
         if (instance == null) {
-            instance = new DatabaseAdapter();
+            instance = new MongoDbDao();
         }
         return instance;
     }
 
 //    @Autowired
     @Override
-    public boolean createDatabase() {  //TODO client не нужон?
+    public boolean createDatabase() {
         try (MongoClient mongoClient = MongoClients.create()) {
             MongoDatabase mongoDatabase = mongoClient.getDatabase("Glossary");
             MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("Words");
@@ -35,7 +35,7 @@ public class DatabaseAdapter implements Database {
             List<BaseEntity> list = connector.listBaseEntity();
 
             for(BaseEntity baseEntity: list){
-                mongoCollection.insertOne(DatabaseHelper.toDoc(baseEntity));
+                mongoCollection.insertOne(MongoDbHelper.toDoc(baseEntity));
             }
             return true;
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class DatabaseAdapter implements Database {
             MongoCursor<Document> cursor = collection.find().cursor();
             while (cursor.hasNext()) {
                 Document document = cursor.next();
-                connector.addBaseEntity(Objects.requireNonNull(DatabaseHelper.fromDoc(document)));
+                connector.addBaseEntity(Objects.requireNonNull(MongoDbHelper.fromDoc(document)));
             }
             return true;
         } catch (Exception e) {

@@ -1,6 +1,6 @@
-package com.zvezdilin.Glossary.database;
+package com.zvezdilin.Glossary.databaseApi;
 
-public interface Database {
+public interface DAO {
     public boolean createDatabase();
 
     public boolean readDatabase();
