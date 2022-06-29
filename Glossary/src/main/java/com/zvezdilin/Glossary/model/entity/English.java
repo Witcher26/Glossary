@@ -23,6 +23,11 @@ public class English extends Language {
         this.type = "English.class";
     }
 
+    /**
+     *
+     * @param name - Имя
+     * @return
+     */
     @Override
     public boolean isAlphabet(String name) {
         return name.matches(LanguageHelper.ENGLISHLang.getValue());

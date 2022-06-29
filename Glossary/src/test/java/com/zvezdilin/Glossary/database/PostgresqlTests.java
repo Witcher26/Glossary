@@ -6,10 +6,14 @@ package com.zvezdilin.Glossary.database;
 //import com.zvezdilin.Glossary.database.postgresQL.ProfileDaoImpl;
 //import com.zvezdilin.Glossary.database.postgresQL.ProfileMapper;
 //import com.zvezdilin.Glossary.database.postgresQL.ProfileServiceImpl;
+
+import com.zvezdilin.Glossary.databaseApi.postgresQL.LanguageStorageImp;
+import com.zvezdilin.Glossary.databaseApi.postgresQL.PostgreSqlDao;
+import com.zvezdilin.Glossary.engineApi.TodosLanguageStorageConnector;
 import org.junit.jupiter.api.*;
 //import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-public class PostrTest {
+public class PostgresqlTests {
     @BeforeAll
     public static void beforeAllMethod() {
         System.out.println("BeforeAll call");
@@ -33,15 +37,19 @@ public class PostrTest {
 
     @Test
     public void testCreatePost() {
+        PostgreSqlDao dao = new PostgreSqlDao();
+        LanguageStorageImp storageImp = new LanguageStorageImp();
 
-//        ConnectionSettings settings = new ConnectionSettings();
-//        DatabaseConfig databaseConfig = new DatabaseConfig(settings);
-//        ProfileMapper profileMapper = new ProfileMapper();
-//        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(databaseConfig.dataSource());
-//        ProfileDao profileDao = new ProfileDaoImpl(profileMapper, namedParameterJdbcTemplate);
-//        ProfileServiceImpl profileService = new ProfileServiceImpl(profileDao);
-//
-//        profileDao.getProfileById(1);
+        TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
+        connector.addWord("unit", "единица измерения", "EN");
+        connector.addWord("summary", "резюмировать", "EN");
+        connector.addWord("rejected", "отклоненный", "EN");
+        connector.addWord("related", "связанный", "EN");
+        connector.addWord("counterpart", "копия", "EN");
+        connector.addWord("enhancement", "доработка", "EN");
+
+        boolean result = dao.updateDatabase();
+
+        Assertions.assertEquals(false, result);
     }
-
 }
