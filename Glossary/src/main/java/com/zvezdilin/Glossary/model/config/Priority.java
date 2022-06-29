@@ -1,6 +1,11 @@
 package com.zvezdilin.Glossary.model.config;
 
-//выставляемый приоритет слов при их создании
+/**
+ * выставляемый приоритет слов
+ * @param {String} str - необходимый приоритет.
+ * При отсутствии подходящего устанавливает Low-приоритет
+ * @return объект типа Priority
+ */
 public enum Priority {
     LOW, MEDIUM, HIGH;
 

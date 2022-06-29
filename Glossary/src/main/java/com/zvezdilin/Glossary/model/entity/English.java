@@ -23,6 +23,10 @@ public class English extends Language {
         this.type = "English.class";
     }
 
+    public English(int id, String localDateTime, String word, String translation, String locale, String priority, String type) {
+        super(id, localDateTime,word, translation, locale, priority, type );
+    }
+
     /**
      *
      * @param name - Имя

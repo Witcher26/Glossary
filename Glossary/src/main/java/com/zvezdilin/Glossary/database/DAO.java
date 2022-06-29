@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.databaseApi;
+package com.zvezdilin.Glossary.database;
 
 public interface DAO {
     public boolean createDatabase();

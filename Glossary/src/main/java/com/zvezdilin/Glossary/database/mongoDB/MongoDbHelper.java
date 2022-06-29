@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.databaseApi.mongoDB;
+package com.zvezdilin.Glossary.database.mongoDB;
 
 import com.zvezdilin.Glossary.model.config.Locale;
 import com.zvezdilin.Glossary.model.config.Priority;

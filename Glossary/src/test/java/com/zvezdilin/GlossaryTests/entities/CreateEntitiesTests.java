@@ -1,6 +1,6 @@
-package com.zvezdilin.Glossary.entities;
+package com.zvezdilin.GlossaryTests.entities;
 
-import com.zvezdilin.Glossary.engineApi.TodosLanguageStorageConnector;
+import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
 import com.zvezdilin.Glossary.model.entity.English;
 import com.zvezdilin.Glossary.model.entity.Language;
 import com.zvezdilin.Glossary.model.exeptionClass.BadDataException;

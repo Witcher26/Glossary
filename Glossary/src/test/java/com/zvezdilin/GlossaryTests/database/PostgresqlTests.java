@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.database;
+package com.zvezdilin.GlossaryTests.database;
 
 //import com.zvezdilin.Glossary.controller.confing.ConnectionSettings;
 //import com.zvezdilin.Glossary.controller.confing.DatabaseConfig;
@@ -7,9 +7,9 @@ package com.zvezdilin.Glossary.database;
 //import com.zvezdilin.Glossary.database.postgresQL.ProfileMapper;
 //import com.zvezdilin.Glossary.database.postgresQL.ProfileServiceImpl;
 
-import com.zvezdilin.Glossary.databaseApi.postgresQL.LanguageStorageImp;
-import com.zvezdilin.Glossary.databaseApi.postgresQL.PostgreSqlDao;
-import com.zvezdilin.Glossary.engineApi.TodosLanguageStorageConnector;
+import com.zvezdilin.Glossary.database.postgresQL.LanguageStorageImp;
+import com.zvezdilin.Glossary.database.postgresQL.PostgreSqlDao;
+import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
 import org.junit.jupiter.api.*;
 //import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 

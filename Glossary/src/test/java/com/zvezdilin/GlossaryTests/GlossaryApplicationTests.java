@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary;
+package com.zvezdilin.GlossaryTests;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

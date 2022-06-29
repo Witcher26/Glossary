@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.databaseApi.postgresQL;
+package com.zvezdilin.Glossary.database.postgresQL;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,9 +18,8 @@ public class JdbcConnection {
     private static final String RESOURCES_PATH = "src/main/resources/database.properties";  //файл "database.properties" должен быть в resources
 
     /**
-     *
      * @param {String} name имя
-     * @param {int} age возраст
+     * @param {int}    age возраст
      * @return
      */
     public static Connection getConnection() throws SQLException, IOException {

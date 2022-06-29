@@ -1,7 +1,7 @@
-package com.zvezdilin.Glossary.database;
+package com.zvezdilin.GlossaryTests.database;
 
-import com.zvezdilin.Glossary.databaseApi.mongoDB.MongoDbDao;
-import com.zvezdilin.Glossary.engineApi.TodosLanguageStorageConnector;
+import com.zvezdilin.Glossary.database.mongoDB.MongoDbDao;
+import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
 import org.junit.jupiter.api.*;
 
 public class MongoDBTests {

@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.engineApi;
+package com.zvezdilin.Glossary.engine;
 
 public interface Storage {
     /**

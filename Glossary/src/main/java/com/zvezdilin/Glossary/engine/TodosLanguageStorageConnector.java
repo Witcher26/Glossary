@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary.engineApi;
+package com.zvezdilin.Glossary.engine;
 
 import com.zvezdilin.Glossary.model.entity.BaseEntity;
 import com.zvezdilin.Glossary.model.entity.English;

@@ -1,6 +1,6 @@
-package com.zvezdilin.Glossary.databaseApi.postgresQL;
+package com.zvezdilin.Glossary.database.postgresQL;
 
-import com.zvezdilin.Glossary.engineApi.TodosLanguageStorageConnector;
+import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
 import com.zvezdilin.Glossary.model.entity.Language;
 
 import java.util.Map;

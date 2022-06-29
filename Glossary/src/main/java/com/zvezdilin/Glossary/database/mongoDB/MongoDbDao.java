@@ -1,8 +1,8 @@
-package com.zvezdilin.Glossary.databaseApi.mongoDB;
+package com.zvezdilin.Glossary.database.mongoDB;
 
 import com.mongodb.client.*;
-import com.zvezdilin.Glossary.databaseApi.DAO;
-import com.zvezdilin.Glossary.engineApi.TodosLanguageStorageConnector;
+import com.zvezdilin.Glossary.database.DAO;
+import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
 import com.zvezdilin.Glossary.model.entity.BaseEntity;
 import org.bson.Document;
 

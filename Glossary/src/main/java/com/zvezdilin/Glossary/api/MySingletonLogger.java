@@ -1,4 +1,4 @@
-package com.zvezdilin.Glossary;
+package com.zvezdilin.Glossary.api;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +17,6 @@ public class MySingletonLogger {
         if (logger == null) {
             loggerInfo = new StringBuilder();
         }
-        logger = new MySingletonLogger();
         return logger;
     }
 
