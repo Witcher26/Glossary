@@ -2,7 +2,7 @@ package com.zvezdilin.Glossary.database.mongoDB;
 
 import com.mongodb.client.*;
 import com.zvezdilin.Glossary.database.DAO;
-import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
+import com.zvezdilin.Glossary.engine.TodosConnector;
 import com.zvezdilin.Glossary.model.entity.BaseEntity;
 import org.bson.Document;
 
@@ -13,7 +13,7 @@ public class MongoDbDao implements DAO {
     private static final Logger logger = Logger.getLogger("DataStorageAdapter class");
     private static MongoDbDao instance;
 
-    TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
+    TodosConnector connector = TodosConnector.getConnector();
 
     private MongoDbDao() {
     }

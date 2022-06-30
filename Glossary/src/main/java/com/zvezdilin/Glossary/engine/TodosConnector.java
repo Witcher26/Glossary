@@ -14,19 +14,19 @@ import java.util.logging.Logger;
 
 @RestController // без этой аннотации не работает
 @RequestMapping("api/storage")
-public class TodosLanguageStorageConnector implements Storage {
-    private static TodosLanguageStorageConnector connector;
+public class TodosConnector implements Storage {
+    private static TodosConnector connector;
     protected static Map<String, Language> wordsMap;
 
     Logger logger = Logger.getLogger("TodosLanguageStorageConnector class");
 
-    protected TodosLanguageStorageConnector() {
+    protected TodosConnector() {
 
     }
 
-    public static synchronized TodosLanguageStorageConnector getConnector() {
+    public static synchronized TodosConnector getConnector() {
         if (connector == null) {
-            connector = new TodosLanguageStorageConnector();
+            connector = new TodosConnector();
             wordsMap = new HashMap<>();
         }
         return connector;

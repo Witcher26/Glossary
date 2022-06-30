@@ -7,9 +7,9 @@ package com.zvezdilin.GlossaryTests.database;
 //import com.zvezdilin.Glossary.database.postgresQL.ProfileMapper;
 //import com.zvezdilin.Glossary.database.postgresQL.ProfileServiceImpl;
 
-import com.zvezdilin.Glossary.database.postgresQL.LanguageStorageImp;
+import com.zvezdilin.Glossary.database.postgresQL.TodosConnectorVO;
 import com.zvezdilin.Glossary.database.postgresQL.PostgreSqlDao;
-import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
+import com.zvezdilin.Glossary.engine.TodosConnector;
 import org.junit.jupiter.api.*;
 //import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -38,9 +38,9 @@ public class PostgresqlTests {
     @Test
     public void testCreatePost() {
         PostgreSqlDao dao = new PostgreSqlDao();
-        LanguageStorageImp storageImp = new LanguageStorageImp();
+        TodosConnectorVO storageTodosConnectorVO = new TodosConnectorVO();
 
-        TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
+        TodosConnector connector = TodosConnector.getConnector();
         connector.addWord("unit", "единица измерения", "EN");
         connector.addWord("summary", "резюмировать", "EN");
         connector.addWord("rejected", "отклоненный", "EN");

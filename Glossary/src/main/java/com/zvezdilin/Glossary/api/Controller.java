@@ -4,7 +4,7 @@ import com.zvezdilin.Glossary.database.DAO;
 import com.zvezdilin.Glossary.database.mongoDB.MongoDbDao;
 import com.zvezdilin.Glossary.database.postgresQL.PostgreSqlDao;
 import com.zvezdilin.Glossary.engine.Engine;
-import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
+import com.zvezdilin.Glossary.engine.TodosConnector;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +21,7 @@ public class Controller {
     private static MySingletonLogger logger = MySingletonLogger.getLogger();
     private static Controller controller;
     private static Engine engine;
-    private static TodosLanguageStorageConnector connector;
+    private static TodosConnector connector;
     private static DAO databaseMongoDB;
     private static DAO databasePostgresQL;
 
@@ -34,7 +34,7 @@ public class Controller {
         }
         logger.getInfo("Start controller api");
         logger.getInfo("инициализация TodosLanguageStorageConnector");
-        connector = TodosLanguageStorageConnector.getConnector();
+        connector = TodosConnector.getConnector();
 
         logger.getInfo("инициализация Engine");
         engine = new Engine();

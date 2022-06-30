@@ -1,6 +1,7 @@
 package com.zvezdilin.Glossary.database.postgresQL;
 
 import com.zvezdilin.Glossary.database.DAO;
+import com.zvezdilin.Glossary.engine.TodosConnector;
 import com.zvezdilin.Glossary.model.entity.Language;
 
 import java.io.IOException;
@@ -18,11 +19,13 @@ import java.sql.Statement;
 
 public class PostgreSqlDao implements DAO {
     private static final Logger LOGGER = Logger.getLogger(PostgreSqlDao.class.getName());
-    private Map<String, Language> wordsMap = LanguageStorageImp.getWordsMap();
-    private static Optional connection;
+    private Map<String, Language> wordsMap;
+    //    private static Optional connection;
     private Language nonNullEntity;
 
     public PostgreSqlDao() {
+        TodosConnectorVO connector = new TodosConnectorVO();
+        wordsMap = connector.getWordsMapFromConnector();
     }
 
     @Override

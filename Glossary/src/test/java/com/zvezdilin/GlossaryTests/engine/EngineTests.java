@@ -3,7 +3,7 @@ package com.zvezdilin.GlossaryTests.engine;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.zvezdilin.Glossary.engine.TodosLanguageStorageConnector;
+import com.zvezdilin.Glossary.engine.TodosConnector;
 import org.junit.jupiter.api.*;
 
 import java.util.logging.Logger;
@@ -38,7 +38,7 @@ public class EngineTests {
         String locale = "";
         String word = "";
 
-        TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
+        TodosConnector connector = TodosConnector.getConnector();
 
         String requestFromClientInJson =
                 "{ \"target\": \"ADD\", " +
@@ -97,7 +97,7 @@ public class EngineTests {
         String locale = "";
         String word = "";
 
-        TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
+        TodosConnector connector = TodosConnector.getConnector();
         connector.addWord("unit", "единица измерения", "EN");
         connector.addWord("summary", "резюмировать", "EN");
         connector.addWord("coalesce", "объединение", "EN");
@@ -157,7 +157,7 @@ public class EngineTests {
         String locale = "";
         String word = "";
 
-        TodosLanguageStorageConnector connector = TodosLanguageStorageConnector.getConnector();
+        TodosConnector connector = TodosConnector.getConnector();
         connector.addWord("unit", "единица измерения", "EN");
         connector.addWord("summary", "резюмировать", "EN");
         connector.addWord("coalesce", "объединение", "EN");
