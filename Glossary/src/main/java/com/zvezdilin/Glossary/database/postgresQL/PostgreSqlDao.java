@@ -1,6 +1,6 @@
-package com.zvezdilin.Glossary.databaseApi.postgresQL;
+package com.zvezdilin.Glossary.database.postgresQL;
 
-import com.zvezdilin.Glossary.databaseApi.DAO;
+import com.zvezdilin.Glossary.database.DAO;
 import com.zvezdilin.Glossary.model.entity.Language;
 
 import java.io.IOException;
