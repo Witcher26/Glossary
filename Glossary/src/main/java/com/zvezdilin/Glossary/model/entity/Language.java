@@ -52,7 +52,7 @@ public abstract class Language implements BaseEntity, Comparator<Language> {
         this.priority = priority;
     }
 
-    // TODO заменить паттернном
+    // TODO заменить паттерном
     public Language(int id, String localDateTime, String word, String translation, String locale, String priority, String type) {
         this.id = id;
         this.localDateTime = localDateTime;

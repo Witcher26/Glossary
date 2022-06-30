@@ -39,6 +39,7 @@ public class MongoDbHelper {
 
     public static BaseEntity fromDoc(Document document) {
         if (document.get("type").equals("English")) {
+            int id = (Integer)document.get("_id");
             String type = (String)document.get("type");;
             String localDateTime = (String) document.get("localDateTime");
             String word = (String) document.get("word");

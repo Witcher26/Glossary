@@ -1,7 +1,21 @@
 package com.zvezdilin.Glossary.engine;
 
-public class Todos {
+import com.zvezdilin.Glossary.model.entity.Language;
+
+import java.util.Map;
+
+/**
+ *  class Todos - абстрактный, экземпляр этого класа нельзя создать
+ *
+ */
+public abstract class Todos {
     private final Storage storage;
+
+    /**
+     *  wordsMap - общее хранилище слов, к которому будет обращаться класс  TodosConnector
+     *
+     */
+    public static Map<String, Language> wordsMap;
 
 
     public Todos(Storage storage) {
@@ -23,11 +37,11 @@ public class Todos {
         storage.removeWord(word);
     }
 
-    /**
-     * Вывод всех слов (даже если список пустой - сообщение об этом).
-     * @return собранную строку (посредством SB)
-     */
-    public String getAllWords() {
-        return storage.getAllWords();
-    }
+//    /**
+//     * Вывод всех слов (даже если список пустой - сообщение об этом).
+//     * @return собранную строку (посредством SB)
+//     */
+//    public String getAllWords() {
+//        return storage.getAllWords();
+//    }
 }

@@ -2,6 +2,7 @@ package com.zvezdilin.Glossary.database.postgresQL;
 
 import com.zvezdilin.Glossary.database.DAO;
 import com.zvezdilin.Glossary.engine.TodosConnector;
+import com.zvezdilin.Glossary.model.entity.English;
 import com.zvezdilin.Glossary.model.entity.Language;
 
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.sql.*;
 import java.util.Map;
 import java.util.Objects;
 
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,11 +20,11 @@ import java.sql.Statement;
 public class PostgreSqlDao implements DAO {
     private static final Logger LOGGER = Logger.getLogger(PostgreSqlDao.class.getName());
     private Map<String, Language> wordsMap;
-    //    private static Optional connection;
     private Language nonNullEntity;
+    TodosConnector todosConnector = TodosConnector.getConnector();
 
     public PostgreSqlDao() {
-        TodosConnectorVO connector = new TodosConnectorVO();
+        TodosConnectorHelper connector = new TodosConnectorHelper();
         wordsMap = connector.getWordsMapFromConnector();
     }
 
@@ -43,6 +43,7 @@ public class PostgreSqlDao implements DAO {
             что база данных сообщит о первичном ключе, созданном ею для новой строки
              */
 
+            int numberOfInsertedRows = 0;
             for (Map.Entry<String, Language> storage : wordsMap.entrySet()) {
                 nonNullEntity = Objects.requireNonNull(storage.getValue(), message);
 
@@ -53,9 +54,10 @@ public class PostgreSqlDao implements DAO {
                 statement.setString(3, nonNullEntity.getLocale().toString());
                 statement.setString(3, nonNullEntity.getPriority().toString());
                 statement.setString(3, nonNullEntity.getType());
+
+                numberOfInsertedRows = statement.executeUpdate();
             }
 
-            int numberOfInsertedRows = statement.executeUpdate();
             LOGGER.log(Level.INFO,
                     "{0} created successfully? {1}",
                     new Object[]{nonNullEntity,
@@ -68,99 +70,74 @@ public class PostgreSqlDao implements DAO {
     }
 
 
-//    public Customer get(int id) {
-//        Customer customer = null;
-//        String sql = "SELECT * FROM customer WHERE customer_id = " + id;
-//
-//        try (Connection connection = JdbcConnection.getConnection()) {
-//
-//            try (Statement statement = connection.createStatement();
-//                 ResultSet resultSet = statement.executeQuery(sql)) {
-//
-//                if (resultSet.next()) {
-//                    String firstName = resultSet.getString("first_name");
-//                    String lastName = resultSet.getString("last_name");
-//                    String email = resultSet.getString("email");
-//
-//                    customer = new Customer(id, firstName, lastName, email);
-//
-//                    LOGGER.log(Level.INFO, "Found {0} in database", customer.getId());
-//                }
-//            }
-//
-//        } catch (SQLException | IOException ex) {
-//            LOGGER.log(Level.SEVERE, null, ex);
-//        }
-//        return customer;
-//    }
-
-
     @Override
     public boolean createDatabase() {
+        String sql = "CREATE TABLE Words"
+                + "("
+                + "id integer, localDateTime text, word text, text translation, locale text, priority text, type"
+                + ");";
+
+        try (Connection connection = JdbcConnection.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.executeUpdate();
+            LOGGER.log(Level.INFO, "The Table created successfully, count of deleted rows: {0}");
+
+        } catch (SQLException | IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+            return false;
+        }
         return true;
     }
 
     @Override
     public boolean readDatabase() {
+        Language language = null;
+        String sql = "SELECT * FROM Words";
+
+        try (Connection connection = JdbcConnection.getConnection()) {
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(sql)) {
+
+                if (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String localDateTime = resultSet.getString("localDateTime");
+                    String word = resultSet.getString("word");
+                    String translation = resultSet.getString("translation");
+                    String locale = resultSet.getString("locale");
+                    String priority = resultSet.getString("priority");
+                    String type = resultSet.getString("type");
+
+                    if(type.equalsIgnoreCase("EN")) {
+                        language = new English(id, localDateTime, word, translation, locale, priority, type);
+                    }
+                    todosConnector.addBaseEntity(language);
+                    LOGGER.log(Level.INFO, "Found {0} in database", language.getId());
+                }
+            }
+
+        } catch (SQLException | IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+        }
         return true;
     }
 
     @Override
     public boolean deleteDatabase() {
+        String sql = "DROP TABLE Words";
+        try (Connection connection = JdbcConnection.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            int numberOfDeletedRows = statement.executeUpdate();
+            LOGGER.log(Level.INFO, "The Table deleted successfully, count of deleted rows: {0}",
+                    numberOfDeletedRows > 0);
+
+        } catch (SQLException | IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+            return false;
+        }
         return true;
     }
-
-//    public void update(Customer customer) {
-//        String message = "The customer to be updated should not be null";
-//        Customer nonNullCustomer = Objects.requireNonNull(customer, message);
-//        String sql = "UPDATE customer "
-//                + "SET "
-//                + "first_name = ?, "
-//                + "last_name = ?, "
-//                + "email = ? "
-//                + "WHERE "
-//                + "customer_id = ?";
-//
-//        connection.ifPresent(conn -> {
-//            try (PreparedStatement statement = conn.prepareStatement(sql)) {
-//
-//                statement.setString(1, nonNullCustomer.getFirstName());
-//                statement.setString(2, nonNullCustomer.getLastName());
-//                statement.setString(3, nonNullCustomer.getEmail());
-//                statement.setInt(4, nonNullCustomer.getId());
-//
-//                int numberOfUpdatedRows = statement.executeUpdate();
-//
-//                LOGGER.log(Level.INFO, "Was the customer updated successfully? {0}",
-//                        numberOfUpdatedRows > 0);
-//
-//            } catch (SQLException ex) {
-//                LOGGER.log(Level.SEVERE, null, ex);
-//            }
-//        });
-//    }
-//
-//    public void delete(Customer customer) {
-//        String message = "The customer to be deleted should not be null";
-//        Customer nonNullCustomer = Objects.requireNonNull(customer, message);
-//        String sql = "DELETE FROM customer WHERE customer_id = ?";
-//
-//        connection.ifPresent(conn -> {
-//            try (PreparedStatement statement = conn.prepareStatement(sql)) {
-//
-//                statement.setInt(1, nonNullCustomer.getId());
-//
-//                int numberOfDeletedRows = statement.executeUpdate();
-//
-//                LOGGER.log(Level.INFO, "Was the customer deleted successfully? {0}",
-//                        numberOfDeletedRows > 0);
-//
-//            } catch (SQLException ex) {
-//                LOGGER.log(Level.SEVERE, null, ex);
-//            }
-//        });
-//    }
-
-
 }
 

@@ -6,10 +6,10 @@ import com.zvezdilin.Glossary.model.entity.Language;
 
 import java.util.Map;
 
-public class TodosConnectorVO extends TodosConnector {
-    private TodosConnector connector; //TODO под вопросом, нужно ли здесь это поле
+public class TodosConnectorHelper extends TodosConnector {
+    private TodosConnector connector;
 
-    public TodosConnectorVO() {
+    public TodosConnectorHelper() {
         if(connector==null){
             connector = TodosConnector.getConnector();
         }

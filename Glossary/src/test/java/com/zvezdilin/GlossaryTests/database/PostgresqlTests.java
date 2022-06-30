@@ -7,7 +7,7 @@ package com.zvezdilin.GlossaryTests.database;
 //import com.zvezdilin.Glossary.database.postgresQL.ProfileMapper;
 //import com.zvezdilin.Glossary.database.postgresQL.ProfileServiceImpl;
 
-import com.zvezdilin.Glossary.database.postgresQL.TodosConnectorVO;
+import com.zvezdilin.Glossary.database.postgresQL.TodosConnectorHelper;
 import com.zvezdilin.Glossary.database.postgresQL.PostgreSqlDao;
 import com.zvezdilin.Glossary.engine.TodosConnector;
 import org.junit.jupiter.api.*;
@@ -34,11 +34,22 @@ public class PostgresqlTests {
         System.out.println("AfterAll call");
     }
 
+    @Test
+    public void testCreateDatabase() {
+        PostgreSqlDao dao = new PostgreSqlDao();
+        TodosConnectorHelper storageTodosConnectorHelper = new TodosConnectorHelper();
+
+        TodosConnector connector = TodosConnector.getConnector();
+
+        boolean result = dao.createDatabase();
+
+        Assertions.assertEquals(true, result);
+    }
 
     @Test
-    public void testCreatePost() {
+    public void testUpdateDatabase() {
         PostgreSqlDao dao = new PostgreSqlDao();
-        TodosConnectorVO storageTodosConnectorVO = new TodosConnectorVO();
+        TodosConnectorHelper storageTodosConnectorHelper = new TodosConnectorHelper();
 
         TodosConnector connector = TodosConnector.getConnector();
         connector.addWord("unit", "единица измерения", "EN");
@@ -51,5 +62,30 @@ public class PostgresqlTests {
         boolean result = dao.updateDatabase();
 
         Assertions.assertEquals(false, result);
+    }
+
+
+    @Test
+    public void testReadDatabase() {
+        PostgreSqlDao dao = new PostgreSqlDao();
+        TodosConnectorHelper storageTodosConnectorHelper = new TodosConnectorHelper();
+
+        TodosConnector connector = TodosConnector.getConnector();
+
+        boolean result = dao.readDatabase();
+
+        Assertions.assertEquals(true, result);
+    }
+
+    @Test
+    public void testDeleteDatabase() {
+        PostgreSqlDao dao = new PostgreSqlDao();
+        TodosConnectorHelper storageTodosConnectorHelper = new TodosConnectorHelper();
+
+        TodosConnector connector = TodosConnector.getConnector();
+
+        boolean result = dao.deleteDatabase();
+
+        Assertions.assertEquals(true, result);
     }
 }
