@@ -1,7 +1,7 @@
 package com.zvezdilin.GlossaryTests.database;
 
 import com.zvezdilin.Glossary.database.mongoDB.MongoDbDao;
-import com.zvezdilin.Glossary.engine.TodosConnector;
+import com.zvezdilin.Glossary.engine.StorageConnector;
 import org.junit.jupiter.api.*;
 
 public class MongoDBTests {
@@ -30,7 +30,7 @@ public class MongoDBTests {
     public void testCreateDatabaseAdapter() {
         //arrange
         MongoDbDao adapter = MongoDbDao.getInstance();
-        TodosConnector connector = TodosConnector.getConnector();
+        StorageConnector connector = StorageConnector.getConnector();
 
         connector.addWord("unit", "единица измерения", "EN");
         connector.addWord("summary", "резюмировать", "EN");
@@ -50,7 +50,7 @@ public class MongoDBTests {
     public void testReadDatabaseAdapter() {
         //arrange
         MongoDbDao adapter = MongoDbDao.getInstance();
-        TodosConnector connector = TodosConnector.getConnector();
+        StorageConnector connector = StorageConnector.getConnector();
 
         connector.addWord("unit", "единица измерения", "EN");
         connector.addWord("summary", "резюмировать", "EN");
@@ -74,7 +74,7 @@ public class MongoDBTests {
     public void testUpdateDatabaseAdapter() {
         //arrange
         MongoDbDao adapter = MongoDbDao.getInstance();
-        TodosConnector connector = TodosConnector.getConnector();
+        StorageConnector connector = StorageConnector.getConnector();
 
         ///act
         boolean result= adapter.updateDatabase();
@@ -87,7 +87,7 @@ public class MongoDBTests {
     public void testDeleteDataBaseAdapter() {
         //arrange
         MongoDbDao adapter = MongoDbDao.getInstance();
-        TodosConnector connector = TodosConnector.getConnector();
+        StorageConnector connector = StorageConnector.getConnector();
 
         //act
         boolean result = adapter.deleteDatabase();

@@ -13,6 +13,11 @@ public class English extends Language {
     public English() {
     }
 
+    /**
+     *
+     * @param word
+     * @param translation
+     */
     public English(String word, String translation) {
         super(word, translation);
         this.locale = Locale.EN;
@@ -37,8 +42,10 @@ public class English extends Language {
         return name.matches(LanguageHelper.ENGLISHLang.getValue());
     }
 
+
     @Override
     protected boolean checkEditWord(String word) throws BadDataException {
+
         if (word.isEmpty()) {
             logger.warning("word is null");
             throw new NullPointerException("word is null");

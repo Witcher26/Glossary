@@ -22,7 +22,7 @@ public class Engine {
         String result = "empty str";
 
         logger.info("Start engine server...");
-        TodosConnector connector = TodosConnector.getConnector();
+        StorageConnector connector = StorageConnector.getConnector();
 
         JsonElement rootNode = JsonParser.parseString(requestFromClientInJson);
         logger.info("получение rootNode при парсинге: " + rootNode.toString());

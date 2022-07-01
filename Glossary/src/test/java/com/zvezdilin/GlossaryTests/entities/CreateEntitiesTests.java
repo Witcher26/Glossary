@@ -1,6 +1,6 @@
 package com.zvezdilin.GlossaryTests.entities;
 
-import com.zvezdilin.Glossary.engine.TodosConnector;
+import com.zvezdilin.Glossary.engine.StorageConnector;
 import com.zvezdilin.Glossary.model.entity.English;
 import com.zvezdilin.Glossary.model.entity.Language;
 import com.zvezdilin.Glossary.model.exeptionClass.BadDataException;
@@ -47,7 +47,7 @@ public class CreateEntitiesTests {
 
     @Test
     public void testDeleteWord() throws BadDataException {
-        TodosConnector connector = TodosConnector.getConnector();
+        StorageConnector connector = StorageConnector.getConnector();
 
         //arrange
         String expectedResult = "Слово: \"coalesce\", его перевод: \"объединение\"" +

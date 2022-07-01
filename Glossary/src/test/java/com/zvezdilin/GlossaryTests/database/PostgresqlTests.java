@@ -7,9 +7,9 @@ package com.zvezdilin.GlossaryTests.database;
 //import com.zvezdilin.Glossary.database.postgresQL.ProfileMapper;
 //import com.zvezdilin.Glossary.database.postgresQL.ProfileServiceImpl;
 
-import com.zvezdilin.Glossary.database.postgresQL.TodosConnectorHelper;
+import com.zvezdilin.Glossary.database.postgresQL.StorageConnectorHelper;
 import com.zvezdilin.Glossary.database.postgresQL.PostgreSqlDao;
-import com.zvezdilin.Glossary.engine.TodosConnector;
+import com.zvezdilin.Glossary.engine.StorageConnector;
 import org.junit.jupiter.api.*;
 //import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -37,9 +37,9 @@ public class PostgresqlTests {
     @Test
     public void testCreateDatabase() {
         PostgreSqlDao dao = new PostgreSqlDao();
-        TodosConnectorHelper storageTodosConnectorHelper = new TodosConnectorHelper();
+        StorageConnectorHelper storageTodosConnectorHelper = new StorageConnectorHelper();
 
-        TodosConnector connector = TodosConnector.getConnector();
+        StorageConnector connector = StorageConnector.getConnector();
 
         boolean result = dao.createDatabase();
 
@@ -49,9 +49,9 @@ public class PostgresqlTests {
     @Test
     public void testUpdateDatabase() {
         PostgreSqlDao dao = new PostgreSqlDao();
-        TodosConnectorHelper storageTodosConnectorHelper = new TodosConnectorHelper();
+        StorageConnectorHelper storageTodosConnectorHelper = new StorageConnectorHelper();
 
-        TodosConnector connector = TodosConnector.getConnector();
+        StorageConnector connector = StorageConnector.getConnector();
         connector.addWord("unit", "единица измерения", "EN");
         connector.addWord("summary", "резюмировать", "EN");
         connector.addWord("rejected", "отклоненный", "EN");
@@ -68,9 +68,9 @@ public class PostgresqlTests {
     @Test
     public void testReadDatabase() {
         PostgreSqlDao dao = new PostgreSqlDao();
-        TodosConnectorHelper storageTodosConnectorHelper = new TodosConnectorHelper();
+        StorageConnectorHelper storageTodosConnectorHelper = new StorageConnectorHelper();
 
-        TodosConnector connector = TodosConnector.getConnector();
+        StorageConnector connector = StorageConnector.getConnector();
 
         boolean result = dao.readDatabase();
 
@@ -80,9 +80,9 @@ public class PostgresqlTests {
     @Test
     public void testDeleteDatabase() {
         PostgreSqlDao dao = new PostgreSqlDao();
-        TodosConnectorHelper storageTodosConnectorHelper = new TodosConnectorHelper();
+        StorageConnectorHelper storageTodosConnectorHelper = new StorageConnectorHelper();
 
-        TodosConnector connector = TodosConnector.getConnector();
+        StorageConnector connector = StorageConnector.getConnector();
 
         boolean result = dao.deleteDatabase();
 

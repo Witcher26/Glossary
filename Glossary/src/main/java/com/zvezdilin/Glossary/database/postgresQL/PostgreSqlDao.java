@@ -1,7 +1,7 @@
 package com.zvezdilin.Glossary.database.postgresQL;
 
 import com.zvezdilin.Glossary.database.DAO;
-import com.zvezdilin.Glossary.engine.TodosConnector;
+import com.zvezdilin.Glossary.engine.StorageConnector;
 import com.zvezdilin.Glossary.model.entity.English;
 import com.zvezdilin.Glossary.model.entity.Language;
 
@@ -21,10 +21,10 @@ public class PostgreSqlDao implements DAO {
     private static final Logger LOGGER = Logger.getLogger(PostgreSqlDao.class.getName());
     private Map<String, Language> wordsMap;
     private Language nonNullEntity;
-    TodosConnector todosConnector = TodosConnector.getConnector();
+    StorageConnector storageConnector = StorageConnector.getConnector();
 
     public PostgreSqlDao() {
-        TodosConnectorHelper connector = new TodosConnectorHelper();
+        StorageConnectorHelper connector = new StorageConnectorHelper();
         wordsMap = connector.getWordsMapFromConnector();
     }
 
@@ -90,6 +90,7 @@ public class PostgreSqlDao implements DAO {
         return true;
     }
 
+
     @Override
     public boolean readDatabase() {
         Language language = null;
@@ -112,7 +113,7 @@ public class PostgreSqlDao implements DAO {
                     if(type.equalsIgnoreCase("EN")) {
                         language = new English(id, localDateTime, word, translation, locale, priority, type);
                     }
-                    todosConnector.addBaseEntity(language);
+                    storageConnector.addBaseEntity(language);
                     LOGGER.log(Level.INFO, "Found {0} in database", language.getId());
                 }
             }

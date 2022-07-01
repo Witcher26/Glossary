@@ -9,40 +9,41 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 @RestController // без этой аннотации не работает
 @RequestMapping("api/storage")
-public class TodosConnector implements Storage {
-    private static TodosConnector connector;
+public class StorageConnector implements Storage {
+    private static StorageConnector connector;
     protected static Map<String, Language> wordsMap;
 
-    Logger logger = Logger.getLogger("TodosLanguageStorageConnector class");
+    Logger LOGGER = Logger.getLogger("StorageConnector class");
 
-    protected TodosConnector() {
-
+    protected StorageConnector() {
     }
 
-    public static synchronized TodosConnector getConnector() {
+    public static synchronized StorageConnector getConnector() {
         if (connector == null) {
-            connector = new TodosConnector();
-            wordsMap = new HashMap<>();
+            connector = new StorageConnector();
+            wordsMap = Repository.getRepository().getWordsMap();
         }
         return connector;
     }
 
-    @PostMapping("addWord")
+    @PostMapping("addWord")  //TODO отсюда убрать @PostMapping
     @Override
     public boolean addWord(@RequestParam("word") String word, @RequestParam("translate") String translate, @RequestParam("locale") String locale) {
         Language newWord = null;
 
         if (word == null || translate == null) {
-            logger.warning("NullPointerException при создании слова");
+            LOGGER.log(Level.WARNING,
+                    "NullPointerException при создании слова");
             throw new NullPointerException("Слово или перевод имеют значение null");
         }
 
-        if (locale.contains("EN")) {
+        if (locale.equalsIgnoreCase("EN")) {
             newWord = new English(word, translate);
         }
 
@@ -50,14 +51,16 @@ public class TodosConnector implements Storage {
         String strToLowCase = newWord.getWord().toLowerCase();
 
         if (wordsMap.containsKey(strToLowCase)) {
-            logger.warning("Данное слово уже присутствует в словаре");
+            LOGGER.log(Level.WARNING,
+                    "Данное слово уже присутствует в словаре");
+            return false;
 
         } else {
             wordsMap.put(strToLowCase, newWord);
-            logger.info("Слово " + newWord.getWord() + " успешно добавлено в словарь");
+            LOGGER.log(Level.INFO,
+                    "Слово " + newWord.getWord() + " успешно добавлено в словарь");
             return true;
         }
-        return false;
     }
 
     @PostMapping("removeWord")
@@ -95,24 +98,19 @@ public class TodosConnector implements Storage {
         return sb.toString();
     }
 
-
-    public List<BaseEntity> listBaseEntity(){
+    //TODO на удаление
+    public List<BaseEntity> listBaseEntity() {
         List<BaseEntity> list = new ArrayList<>();
-        for(Map.Entry<String, Language> entry: wordsMap.entrySet()){
+        for (Map.Entry<String, Language> entry : wordsMap.entrySet()) {
             list.add(entry.getValue());
         }
         return list;
     }
 
-    public void addBaseEntity(BaseEntity baseEntity){
+    public void addBaseEntity(BaseEntity baseEntity) {
         Language language = (Language) baseEntity;
-        if(!wordsMap.containsKey(language.getWord())){
+        if (!wordsMap.containsKey(language.getWord())) {
             wordsMap.put(language.getWord(), language);
         }
     }
-
-    //    @Override
-//    public int compare(StringBuilder st1, StringBuilder st2){
-//        return st1.toString().compareTo(st2.toString());
-//    }
 }
