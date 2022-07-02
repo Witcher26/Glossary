@@ -1,11 +1,11 @@
 package com.zvezdilin.Glossary.engine;
 
 /**
- * interface Storage - задает логику добавления/удаления слов в хранилище, а также вывод всех слов.
+ * interface Storage - задает логику работы с хранилищем GlobalRepository.
  */
 public interface Storage {
     /**
-     * метод добавления слова в хранилище Repository
+     * метод добавления слова
      *
      * @param word      - добавляемое слово
      * @param translate - перевод
@@ -15,7 +15,7 @@ public interface Storage {
     boolean addWord(String word, String translate, String locale);
 
     /**
-     * метод удаления слова из хранилища Repository
+     * метод удаления слова
      *
      * @param words - удаляемое слово
      * @return true or false
@@ -23,9 +23,9 @@ public interface Storage {
     boolean removeWord(String words);
 
     /**
-     * метод получения всех слов из хранилище Repository. Слова выводятся в алфавитном порядке (реализован компаратор)
+     * метод получения всех слов. Слова выводятся в алфавитном порядке (реализован компаратор)
      *
-     * @return строку StringBuilder, содержащую через запятую слова с переводом.
+     * @return StringBuilder, содержащий через запятую слово и перевод.
      */
     String getAllWords();
 }

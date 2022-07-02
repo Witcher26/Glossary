@@ -6,7 +6,6 @@ import com.zvezdilin.Glossary.model.entity.Language;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -16,21 +15,23 @@ import java.util.logging.Logger;
 @RestController // без этой аннотации не работает
 @RequestMapping("api/storage")
 public class StorageConnector implements Storage {
-    private static StorageConnector connector;
-    protected static Map<String, Language> wordsMap;
+//    protected  StorageConnector connector;
+    protected Map<String, Language> wordsMap;
 
-    Logger LOGGER = Logger.getLogger("StorageConnector class");
+    Logger LOGGER = Logger.getLogger(StorageConnector.class.getName());
 
-    protected StorageConnector() {
+    public StorageConnector() {
+//        connector = new StorageConnector();
+        wordsMap = GlobalRepository.getRepository().getWordsMap();
     }
 
-    public static synchronized StorageConnector getConnector() {
-        if (connector == null) {
-            connector = new StorageConnector();
-            wordsMap = Repository.getRepository().getWordsMap();
-        }
-        return connector;
-    }
+//    public static synchronized StorageConnector getConnector() {
+//        if (connector == null) {
+//            connector = new StorageConnector();
+//            wordsMap = GlobalRepository.getRepository().getWordsMap();
+//        }
+//        return connector;
+//    }
 
     @PostMapping("addWord")  //TODO отсюда убрать @PostMapping
     @Override
@@ -67,26 +68,30 @@ public class StorageConnector implements Storage {
     @Override
     public boolean removeWord(@RequestParam("wordToRemove") String wordToRemove) {
         if (wordToRemove == null) {
-            logger.warning("в метод \"removeWord\" не передали слово для удаления");
+            LOGGER.log(Level.WARNING,
+                    "В метод \"removeWord\" передан null");
             throw new NullPointerException("Слово имеет значение null");
         }
         String strToLowCase = wordToRemove.toLowerCase();
         if (wordsMap.containsKey(strToLowCase)) {
-            System.out.println("Слово " + strToLowCase + " удалено");
+            LOGGER.log(Level.INFO,
+                    "Слово " + strToLowCase + " удалено");
             wordsMap.remove(strToLowCase);
             return true;
         } else {
-            logger.warning("Нет совпадений");
+            LOGGER.log(Level.WARNING,
+                    "Совпадений не найдено");
+            return false;
         }
-        return false;
     }
 
     @GetMapping("getAllWords")
     @Override
     public String getAllWords() {
         if (wordsMap.isEmpty()) {
-            logger.warning("Слова отсутствуют в списке");
-            return "Слова отсутствуют в списке";
+            LOGGER.log(Level.WARNING,
+                    "Репозиторий пуст");
+            return "Репозиторий пуст";
         }
 
         StringBuilder sb = new StringBuilder();
@@ -99,18 +104,18 @@ public class StorageConnector implements Storage {
     }
 
     //TODO на удаление
-    public List<BaseEntity> listBaseEntity() {
-        List<BaseEntity> list = new ArrayList<>();
-        for (Map.Entry<String, Language> entry : wordsMap.entrySet()) {
-            list.add(entry.getValue());
-        }
-        return list;
-    }
-
-    public void addBaseEntity(BaseEntity baseEntity) {
-        Language language = (Language) baseEntity;
-        if (!wordsMap.containsKey(language.getWord())) {
-            wordsMap.put(language.getWord(), language);
-        }
-    }
+//    public List<BaseEntity> listBaseEntity() {
+//        List<BaseEntity> list = new ArrayList<>();
+//        for (Map.Entry<String, Language> entry : wordsMap.entrySet()) {
+//            list.add(entry.getValue());
+//        }
+//        return list;
+//    }
+//
+//    public void addBaseEntity(BaseEntity baseEntity) {
+//        Language language = (Language) baseEntity;
+//        if (!wordsMap.containsKey(language.getWord())) {
+//            wordsMap.put(language.getWord(), language);
+//        }
+//    }
 }

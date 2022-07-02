@@ -1,6 +1,5 @@
 package com.zvezdilin.Glossary.engine;
 
-import com.zvezdilin.Glossary.database.postgresQL.PostgreSqlDao;
 import com.zvezdilin.Glossary.model.entity.BaseEntity;
 import com.zvezdilin.Glossary.model.entity.Language;
 
@@ -12,31 +11,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * class Repository - singleton класс для работы с хранилищем в режиме "одного окна".
+ * class GlobalRepository - Singleton класс - единственное хранилище слов на всю программу.
  */
-public class Repository {
+public class GlobalRepository {
     private Storage storage;
-    protected static Repository repository;
+    protected static GlobalRepository globalRepository;
     protected static Map<String, Language> wordsMap;
 
-    private static final Logger LOGGER = Logger.getLogger(Repository.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(GlobalRepository.class.getName());
 
-    public Repository(Storage storage) {  //TODO лишний конструктор
+    public GlobalRepository(Storage storage) {  //TODO лишний конструктор
         this.storage = storage;
     }
 
-    private Repository() {
+    private GlobalRepository() {
     }
 
     /**
-     * метод возвращает хранилище слов Repository
+     * метод возвращает хранилище
      */
-    public static synchronized Repository getRepository() {
-        if (repository == null) {
-            repository = new Repository();
+    public static synchronized GlobalRepository getRepository() {
+        if (globalRepository == null) {
+            globalRepository = new GlobalRepository();
             wordsMap = new HashMap<>();
         }
-        return repository;
+        return globalRepository;
     }
 
     public Map<String, Language> getWordsMap() {
@@ -47,7 +46,7 @@ public class Repository {
         List<BaseEntity> list = new ArrayList<>();
         if (wordsMap.isEmpty()) {
             LOGGER.log(Level.INFO,
-                    "repository is null");
+                    "GlobalRepository is null");
         }
         for (Map.Entry<String, Language> entry : wordsMap.entrySet()) {
             list.add(entry.getValue());
@@ -59,7 +58,7 @@ public class Repository {
         Language language = (Language) baseEntity;
         if (wordsMap.containsKey(language.getWord())) {
             LOGGER.log(Level.INFO,
-                    "попытка добавления в repository дубликата");
+                    "попытка добавления дубликата в GlobalRepository ");
         }
         wordsMap.put(language.getWord(), language);
     }

@@ -16,8 +16,8 @@ public abstract class Language implements BaseEntity, Comparator<Language> {
     protected Locale locale;
     protected String word;
     protected String translation;
-    protected String type;
     protected Priority priority;
+    protected String type;
 
     public int getId() {
         return id;
@@ -35,25 +35,15 @@ public abstract class Language implements BaseEntity, Comparator<Language> {
     }
 
     public Language(String word, String translation) {
+        this.id = hashCode(); //TODO устанавливается
+        this.localDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_DATE_TIME).toString();  //TODO устанавливается
         this.word = word;
         this.translation = translation;
-        this.id = hashCode();
-        this.localDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_DATE_TIME);
-        this.type = Language.class.toString();
-        this.priority = Priority.LOW;
+        this.type = this.getClass().toString();
+        this.priority = Priority.LOW;  //TODO устанавливается
     }
 
-    public Language(String localDateTime, Locale locale, String word, String translation, Priority priority) {
-        this.localDateTime = localDateTime;
-        this.locale = locale;
-        this.word = word;
-        this.translation = translation;
-        this.type = Language.class.toString();
-        this.priority = priority;
-    }
-
-    // TODO заменить паттерном
-    public Language(int id, String localDateTime, String word, String translation, String locale, String priority, String type) {
+    public Language(int id, String localDateTime, String locale, String word, String translation, String priority, String type) {
         this.id = id;
         this.localDateTime = localDateTime;
         this.locale = Locale.valueOf(locale);
@@ -62,7 +52,6 @@ public abstract class Language implements BaseEntity, Comparator<Language> {
         this.priority = Priority.getValue(priority);
         this.type = type;
     }
-
 
     public String getWord() {
         return this.word;
@@ -84,10 +73,22 @@ public abstract class Language implements BaseEntity, Comparator<Language> {
         }
     }
 
-    //TODO abstract method isAlphabet(), переопределяется в каждом конкретном классе в зависимости от ракладки
-    public abstract boolean isAlphabet(String name);
+    /**
+     * метод проверки слова принадлежности языку, see {@link com.zvezdilin.Glossary.model.config.LanguageHelper}
+     * Для каждого языка задаётся отдельное регулярное выражение
+     *
+     * @param word - проверяемое на принадлежность к языку слво
+     * @return true or false
+     */
+    public abstract boolean isAlphabet(String word);
 
-    //TODO abstract method, переопределяется в каждом конкретном классе в зависимости от isAlphabet()
+    /**
+     * метод проверки слова при редактировании
+     *
+     * @param word - редактируемое слово
+     * @return true or false
+     * @throws BadDataException при несоответствии локали и вводе недопустимых символов
+     */
     protected abstract boolean checkEditWord(String word) throws BadDataException;
 
     public Priority getPriority() {
@@ -131,7 +132,7 @@ public abstract class Language implements BaseEntity, Comparator<Language> {
 
     @Override
     public int compare(Language o1, Language o2) {
-        return o1.getWord().compareTo(o2.getWord());
+        return o1.getWord().compareTo(o2.getWord()); //TODO метод compare работает плохо
     }
 }
 
