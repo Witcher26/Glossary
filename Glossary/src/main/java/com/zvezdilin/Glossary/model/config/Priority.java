@@ -1,14 +1,17 @@
 package com.zvezdilin.Glossary.model.config;
 
 /**
- * выставляемый приоритет слов
- * @param {String} str - необходимый приоритет.
- * При отсутствии подходящего устанавливает Low-приоритет
- * @return объект типа Priority
+ * Класс приоритетов слов
  */
 public enum Priority {
     LOW, MEDIUM, HIGH;
 
+    /**
+     * метод установления приоритета у слова.
+     *
+     * @param str - передаваемый приоритет слову. При отсутствии совпадений - устанавливает Low-приоритет
+     * @return по умалчанию Priority.Low
+     */
     public static Priority getValue(String str) {
         if (str.equalsIgnoreCase("MEDIUM")) {
             return Priority.MEDIUM;
