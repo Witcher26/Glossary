@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.Objects;
 
-public abstract class Language implements BaseEntity, Comparator<Language> {
+public abstract class Language implements BaseEntity, Comparable<Language> {
     protected int id;
     protected String localDateTime;
     protected Locale locale;
@@ -131,8 +131,14 @@ public abstract class Language implements BaseEntity, Comparator<Language> {
     }
 
     @Override
-    public int compare(Language o1, Language o2) {
-        return o1.getWord().compareTo(o2.getWord()); //TODO метод compare работает плохо
+    public int compareTo(Language o) {
+
+        int result = this.getWord().compareTo(o.getWord());
+
+        if (result == 0) {
+            result = this.getTranslation().compareTo(o.getTranslation());
+        }
+        return result;
     }
 }
 

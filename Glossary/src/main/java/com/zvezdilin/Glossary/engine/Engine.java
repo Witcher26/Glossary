@@ -22,15 +22,14 @@ public class Engine {
     public String start(@RequestBody String requestFromClientInJson) {
         String result = "empty str";
 
-        LOGGER.log(Level.INFO,"Start engine server...");
-//        StorageConnector connector = StorageConnector.getConnector();
+        LOGGER.log(Level.INFO, "Start engine server...");
         StorageConnector connector = new StorageConnector();
 
         JsonElement rootNode = JsonParser.parseString(requestFromClientInJson);
-        LOGGER.log(Level.INFO,"Получен rootNode при парсинге: " + rootNode.toString());
+        LOGGER.log(Level.INFO, "Получен rootNode при парсинге: " + rootNode.toString());
 
         JsonObject details = rootNode.getAsJsonObject();
-        LOGGER.log(Level.INFO,"Получены details при парсинге: " + details.toString());
+        LOGGER.log(Level.INFO, "Получены details при парсинге: " + details.toString());
 
         String target = details.get("target").getAsString();
         LOGGER.log(Level.INFO, "Получен target: " + target);
