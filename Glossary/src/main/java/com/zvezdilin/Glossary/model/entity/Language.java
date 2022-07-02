@@ -7,10 +7,9 @@ import com.zvezdilin.Glossary.model.exeptionClass.BadDataException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
 import java.util.Objects;
 
-public abstract class Language implements BaseEntity, Comparable<Language> {
+public abstract class Language implements BaseEntity {
     protected int id;
     protected String localDateTime;
     protected Locale locale;
@@ -74,10 +73,10 @@ public abstract class Language implements BaseEntity, Comparable<Language> {
     }
 
     /**
-     * метод проверки слова принадлежности языку, see {@link com.zvezdilin.Glossary.model.config.LanguageHelper}
+     * метод проверки принадлежности к языку, see {@link com.zvezdilin.Glossary.model.config.LanguageHelper}
      * Для каждого языка задаётся отдельное регулярное выражение
      *
-     * @param word - проверяемое на принадлежность к языку слво
+     * @param word - проверяемое на принадлежность к языку слово
      * @return true or false
      */
     public abstract boolean isAlphabet(String word);
@@ -128,17 +127,6 @@ public abstract class Language implements BaseEntity, Comparable<Language> {
     @Override
     public int hashCode() {
         return Objects.hash(id, locale, word, translation, type);
-    }
-
-    @Override
-    public int compareTo(Language o) {
-
-        int result = this.getWord().compareTo(o.getWord());
-
-        if (result == 0) {
-            result = this.getTranslation().compareTo(o.getTranslation());
-        }
-        return result;
     }
 }
 

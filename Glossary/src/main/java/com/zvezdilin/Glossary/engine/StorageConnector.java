@@ -4,7 +4,7 @@ import com.zvezdilin.Glossary.model.entity.English;
 import com.zvezdilin.Glossary.model.entity.Language;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -82,9 +82,18 @@ public class StorageConnector implements Storage {
 
         StringBuilder sb = new StringBuilder();
 
-        for (Map.Entry<String, Language> entry : wordsMap.entrySet()) {
-            sb.append(entry.getValue() + "\n");
+        List<Language> valueList = new ArrayList<>(wordsMap.values());
+        valueList.sort(new Comparator<Language>() {
+            @Override
+            public int compare(Language o1, Language o2) {
+                return o1.getWord().compareTo(o2.getWord());
+            }
+        });
+
+        for (Language o : valueList) {
+            sb.append(o).append("\n");
         }
+
         return sb.toString();
     }
 }
