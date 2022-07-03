@@ -28,7 +28,7 @@ public class GlobalRepository {
     }
 
     /**
-     * метод возвращает хранилище
+     * метод возвращает хранилище globalRepository
      */
     public static synchronized GlobalRepository getRepository() {
         if (globalRepository == null) {
