@@ -58,7 +58,7 @@ public class GlobalRepository {
         Language language = (Language) baseEntity;
         if (wordsMap.containsKey(language.getWord())) {
             LOGGER.log(Level.INFO,
-                    "попытка добавления дубликата в GlobalRepository ");
+                    "Попытка добавления дубликата в GlobalRepository ");
         }
         wordsMap.put(language.getWord(), language);
     }

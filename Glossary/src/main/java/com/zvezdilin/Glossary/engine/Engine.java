@@ -18,7 +18,7 @@ public class Engine {
     String locale = "";
     String word = "";
 
-    @PostMapping("start")
+    @PostMapping("startEngine") // не клиентский endpoint
     public String start(@RequestBody String requestFromClientInJson) {
         String result = "empty str";
 
