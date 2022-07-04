@@ -59,16 +59,15 @@ public class MongoDbDao implements DAO {
 
             try {
                 for (BaseEntity baseEntity : list) {
-                    mongoCollection.insertOne(MongoDbHelper.toDoc(baseEntity));
+                    Document document = MongoDbHelper.toDoc(baseEntity);
+                    mongoCollection.insertOne(document);
                 }
             } catch (Exception e) {
                 LOGGER.warning("Неудачная попытка добавления объекта в базу данных: " + e.getMessage());
+                return false;
             }
-        } catch (Exception e) {
-            LOGGER.warning("Ошишбка подключения к базе данных: " + e.getMessage());
-            return false;
+            return true;
         }
-        return true;
     }
 
 

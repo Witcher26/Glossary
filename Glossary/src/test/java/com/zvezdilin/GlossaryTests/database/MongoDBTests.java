@@ -49,36 +49,37 @@ public class MongoDBTests {
 //        Assertions.assertEquals(true, result);
 //    }
 
-//    @Test
-//    public void testReadDatabaseAdapter() {
-//        //arrange
-//        MongoDbDao adapter = MongoDbDao.getInstance();
-//        StorageConnector connector = StorageConnector.getConnector();
-//
-//        connector.addWord("unit", "единица измерения", "EN");
-//        connector.addWord("summary", "резюмировать", "EN");
-//        connector.addWord("rejected", "отклоненный", "EN");
-//        connector.addWord("related", "связанный", "EN");
-//        connector.addWord("counterpart", "копия", "EN");
-//        connector.addWord("enhancement", "доработка", "EN");
-//
-//        adapter.createDatabase();
-////        List<BaseEntity> expect = new ArrayList<>();
-////        expect.add((new English("summary", "резюмировать")));
-//
-//        ///act
-//        boolean result = adapter.readDatabase();
-//
-//        //assert
-//        Assertions.assertEquals(true, result);
-//    }
+    @Test
+    public void testReadDatabaseAdapter() {
+        //arrange
+        MongoDbDao adapter = new MongoDbDao();
+        StorageConnector connector = new StorageConnector();
+
+        connector.addWord("unit", "единица измерения", "EN");
+        connector.addWord("summary", "резюмировать", "EN");
+        connector.addWord("rejected", "отклоненный", "EN");
+        connector.addWord("related", "связанный", "EN");
+        connector.addWord("counterpart", "копия", "EN");
+        connector.addWord("enhancement", "доработка", "EN");
+
+        adapter.createDatabase();
+//        List<BaseEntity> expect = new ArrayList<>();
+//        expect.add((new English("summary", "резюмировать")));
+
+        ///act
+        boolean result = adapter.readDatabase();
+
+        //assert
+        Assertions.assertEquals(true, result);
+    }
 
     @Test
     public void testUpdateDatabaseAdapter() {
         //arrange
         DAO adapter = new MongoDbDao();
         StorageConnector storage = new StorageConnector();
-        storage.addWord("announce", "аннонсировать", "En");
+        storage.addWord("debug", "отлаживать", "En");
+        storage.addWord("ss", "опаап", "En");
 
         ///act
         boolean result= adapter.updateDatabase();

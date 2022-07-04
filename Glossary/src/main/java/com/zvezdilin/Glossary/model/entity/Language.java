@@ -109,7 +109,9 @@ public abstract class Language implements BaseEntity {
                 getWord().toLowerCase() +
                 "\", его перевод: \"" +
                 getTranslation().toLowerCase() +
-                "\"";
+                "\"" +
+                "\", его id: \"" +
+                getId();
     }
 
     @Override
