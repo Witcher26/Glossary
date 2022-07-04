@@ -10,12 +10,8 @@ import com.zvezdilin.Glossary.engine.StorageConnector;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-@RestController //обработчик входящих rest-запросов
+@RestController
 @RequestMapping(value = "api/controller/v1/")
-//@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-/*
-/через параметр produces мы указываем, что контроллер возвращает ответ в формате json.
- */
 public class Controller {
     private static MySingletonLogger myLogger = MySingletonLogger.getLogger();
     private static Controller controller;
@@ -24,31 +20,30 @@ public class Controller {
     private static DAO databaseMongoDB;
     private static DAO databasePostgresQL;
 
-    public Controller() {
-        myLogger.getInfo("Start controller api");
-
-        myLogger.getInfo("Инициализация " + Controller.class.getName());
-//        Controller controller = new Controller();
-
-
-        myLogger.getInfo("Инициализация " + Engine.class.getName());
-        Engine engine = new Engine();
-
-        myLogger.getInfo("Инициализация " + StorageConnector.class.getName());
-        StorageConnector connector = new StorageConnector();
-
-        myLogger.getInfo("Инициализация " + MongoDbDao.class.getName());
-        MongoDbDao mongo = new MongoDbDao();
-
-        myLogger.getInfo("Инициализация " + MongoDbHelper.class.getName());
-        MongoDbHelper helper = new MongoDbHelper();
+    private Controller() {
     }
+
+    public static synchronized Controller getController() {
+        if (controller == null) {
+            controller = new Controller();
+            engine = new Engine();
+            connector = new StorageConnector();
+            myLogger.getInfo("Start controller api");
+            myLogger.getInfo("Инициализация " + Controller.class.getName() + ", "
+                    + StorageConnector.class.getName() + ", "
+                    + Engine.class.getName() + ", "
+                    + MongoDbDao.class.getName() + ", "
+                    + MongoDbHelper.class.getName()
+            );
+        }
+        return controller;
+    }
+
 
     @PostMapping("startEngine/")
     public String startEngine(@RequestBody String requestFromClientInJson) {
-        Engine engine = new Engine();
+        Controller.getController();
         return engine.start(requestFromClientInJson);
-
     }
 
     @GetMapping("mongoDb/create")
@@ -78,34 +73,6 @@ public class Controller {
         MongoDbHelper helper = new MongoDbHelper();
         return mongo.deleteDatabase();
     }
-
-
-
-
-
-
-
-
-//    @PostMapping("startController")
-//    public St startController() {
-//        if (controller == null) {
-//            controller = new Controller();
-//        }
-//        myLogger.getInfo("Start controller api");
-//        myLogger.getInfo("инициализация TodosLanguageStorageConnector");
-//        connector = StorageConnector.getConnector();
-//
-//        myLogger.getInfo("инициализация Engine");
-//        engine = new Engine();
-//
-//        myLogger.getInfo("инициализация Database");
-//        databaseMongoDB = MongoDbDao.getInstance();
-//        databasePostgresQL = new PostgreSqlDao();
-//
-//        return controller;
-//    }
-
-
 
 
 //    @GetMapping(value = "/{personId:\\d+}")  //{personId:\d+} переменная + регулярка

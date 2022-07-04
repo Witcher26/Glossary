@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GlossaryApplication {
     public static void main(String[] args) {
         SpringApplication.run(GlossaryApplication.class, args);
-        Controller controller = new Controller();
+//        Controller controller = new Controller();
 
     }
 }

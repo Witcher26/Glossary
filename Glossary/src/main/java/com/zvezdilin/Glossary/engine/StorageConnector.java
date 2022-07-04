@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@RestController // без этой аннотации не работает
+@RestController
 @RequestMapping("api/storage")
 public class StorageConnector implements Storage {
     protected Map<String, Language> wordsMap;

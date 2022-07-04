@@ -42,5 +42,3 @@ public class English extends Language {
         }
     }
 }
-
-//    String[] words = text.split("\\P{IsAlphabetic}+"); //алфавитные символы
