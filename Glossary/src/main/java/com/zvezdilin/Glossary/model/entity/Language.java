@@ -34,12 +34,12 @@ public abstract class Language implements BaseEntity {
     }
 
     public Language(String word, String translation) {
-        this.id = hashCode(); //TODO устанавливается
         this.localDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_DATE_TIME).toString();  //TODO устанавливается
         this.word = word;
         this.translation = translation;
         this.type = this.getClass().toString();
         this.priority = Priority.LOW;  //TODO устанавливается
+        this.id = hashCode(); //TODO устанавливается
     }
 
     public Language(int id, String localDateTime, String locale, String word, String translation, String priority, String type) {
