@@ -26,28 +26,18 @@ public class Engine {
         StorageConnector connector = new StorageConnector();
 
         JsonElement rootNode = JsonParser.parseString(requestFromClientInJson);
-        LOGGER.log(Level.INFO, "Получен rootNode при парсинге: " + rootNode.toString());
-
         JsonObject details = rootNode.getAsJsonObject();
-        LOGGER.log(Level.INFO, "Получены details при парсинге: " + details.toString());
-
         String target = details.get("target").getAsString();
-        LOGGER.log(Level.INFO, "Получен target: " + target);
 
         if (target.equals("ADD")) {
             word = details.get("word").getAsString();
-            LOGGER.log(Level.INFO, "Получен word: " + word);
-
             translation = details.get("translation").getAsString();
-            LOGGER.log(Level.INFO, "Получен translation: " + translation);
-
             locale = details.get("locale").getAsString();
-            LOGGER.log(Level.INFO, "получен locale: " + locale);
+
         }
 
         if (target.equals("REMOVE")) {
             word = details.get("word").getAsString();
-            LOGGER.log(Level.INFO, "получен word: " + word);
         }
 
         try {

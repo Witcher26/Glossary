@@ -21,16 +21,16 @@ public class MySingletonLogger {
         return myLogger;
     }
 
-    public void getInfo(String str) {
+    public void appendInfo(String str) {
         loggerInfo.append("[" + LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_DATE_TIME) +
                 " шаг_№_" +
                 stepNumber++ +
                 "] " +
-                str);
-        System.out.println("[" + LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_DATE_TIME) +
-                " шаг_№_" +
-                stepNumber++ +
-                "] " +
-                str);
+                str +
+                "\n");
+    }
+
+    public String getInfo() {
+        return loggerInfo.toString();
     }
 }

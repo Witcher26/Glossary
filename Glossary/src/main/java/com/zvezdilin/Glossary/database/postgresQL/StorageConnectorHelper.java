@@ -1,5 +1,6 @@
 //package com.zvezdilin.Glossary.database.postgresQL;
 //
+//import com.zvezdilin.Glossary.engine.GlobalRepository;
 //import com.zvezdilin.Glossary.engine.StorageConnector;
 //import com.zvezdilin.Glossary.model.entity.Language;
 //
@@ -7,15 +8,15 @@
 //
 //public class StorageConnectorHelper extends StorageConnector {
 //    private StorageConnector connector;
+//    private GlobalRepository repository;
 //
 //    public StorageConnectorHelper() {
-//        if (connector == null) {
-//            connector = StorageConnector.getConnector();
-//        }
+//        connector = new StorageConnector();
+//        repository = GlobalRepository.getRepository();
 //    }
 //
 //    public Map<String, Language> getWordsMapFromConnector() {
 //        Map<String, Language> wordsMap;
-//        return wordsMap = StorageConnector.wordsMap;
+//        return wordsMap = connector.g
 //    }
 //}
