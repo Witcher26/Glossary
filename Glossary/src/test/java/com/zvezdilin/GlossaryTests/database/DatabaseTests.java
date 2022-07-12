@@ -1,13 +1,15 @@
 package com.zvezdilin.GlossaryTests.database;
 
 //import com.zvezdilin.Glossary.database.mongoDB.MongoDbDao;
+
+import com.zvezdilin.Glossary.api.AdminController;
 import com.zvezdilin.Glossary.database.DAO;
 import com.zvezdilin.Glossary.database.mongoDB.MongoDbDao;
 import com.zvezdilin.Glossary.engine.Engine;
 import com.zvezdilin.Glossary.engine.StorageConnector;
 import org.junit.jupiter.api.*;
 
-public class MongoDBTests {
+public class DatabaseTests {
     @BeforeAll
     public static void beforeAllMethod() {
         System.out.println("BeforeAll call");
@@ -27,6 +29,15 @@ public class MongoDBTests {
     public static void afterAllMethod() {
         System.out.println("AfterAll call");
     }
+
+//    @Test
+//    public void switchDataBaseTest(String POSTGRESQL) {
+//        boolean tmp;
+//        AdminController controller = new AdminController();
+//        tmp = controller.switchDataBase(POSTGRESQL);
+//
+//        System.out.println(tmp);
+//    }
 
 
 //    @Test
@@ -82,10 +93,10 @@ public class MongoDBTests {
         storage.addWord("ss", "опаап", "En");
 
         ///act
-        boolean result= adapter.updateDatabase();
+        boolean result = adapter.updateDatabase();
 
         //assert
-        Assertions.assertEquals(true,result);
+        Assertions.assertEquals(true, result);
     }
 //
 //    @Test

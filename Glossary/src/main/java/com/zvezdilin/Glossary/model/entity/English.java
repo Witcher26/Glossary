@@ -16,7 +16,6 @@ public class English extends Language {
     public English(String word, String translation) {
         super(word, translation);
         this.locale = Locale.valueOf("EN");
-
     }
 
     public English(int id, String localDateTime, String locale, String word, String translation, String priority, String type) {

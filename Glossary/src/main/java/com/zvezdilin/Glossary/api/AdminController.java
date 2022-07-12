@@ -28,17 +28,15 @@ public class AdminController {
     }
 
     @PostMapping(value = "switchDataBase")
-    public boolean switchDataBase(@RequestParam String isDataBase) {
+    public String switchDataBase(@RequestParam String isDataBase) {
         IsDataBase isdb = IsDataBase.valueOf(isDataBase);
         if (isdb == IsDataBase.MONGODB) {
-
             AdminController.isDataBase = IsDataBase.MONGODB;
         } else {
             AdminController.isDataBase = IsDataBase.POSTGRESQL;
-
         }
         myLogger.appendInfo("Switched Database to " + isDataBase.toString());
-        return true;
+        return "Switched Database to "+ isDataBase.toString();
     }
 
     @PostMapping(value = "createDataBase")
