@@ -121,6 +121,7 @@ public class PostgreSqlDao implements DAO {
 
         } catch (SQLException | IOException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
+            return false;
         }
         return true;
     }

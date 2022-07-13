@@ -71,7 +71,7 @@ public class AdminController {
             dao = new PostgreSqlDao();
         }
         tmp = dao.deleteDatabase();
-        myLogger.appendInfo("Attempt to delete a database. Status: " + String.valueOf(tmp).toUpperCase());
+        myLogger.appendInfo("Attempt to delete a database " + isDataBase.toString() +  ". Status: " + String.valueOf(tmp).toUpperCase());
         return tmp;
     }
 

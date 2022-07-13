@@ -25,11 +25,14 @@ public class MongoDbDao implements DAO {
         try (MongoClient mongoClient = MongoClients.create()) {
             MongoDatabase mongoDatabase = mongoClient.getDatabase(DATABASE);
             MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(COLLECTION);
-            return true;
+
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "Неудачная попытка создания базы данных: " + e.getMessage());
             return false;
         }
+
+
+        return true;
     }
 
     @Override
