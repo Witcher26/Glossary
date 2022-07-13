@@ -6,17 +6,27 @@ import com.zvezdilin.Glossary.database.postgresQL.PostgreSqlDao;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * класс неклиентских запросов
+ * класс неклиентских запросов.
+ * По умалчанию сохрание идет в MongoDb
  */
 
 @RestController
 @RequestMapping(value = "api/adminController/v1/")
 public class AdminController {
     private static MySingletonLogger myLogger = MySingletonLogger.getLogger();
-    private static IsDataBase isDataBase = IsDataBase.MONGODB;
-    private DAO dao;
+    private static IsDataBase isDataBase;
+    private static DAO dao;
+    private static AdminController admin;
 
-    public AdminController() {
+    private AdminController() {
+    }
+
+    public static synchronized AdminController getAdmin() {
+        if (admin == null) {
+            admin = new AdminController();
+            isDataBase = IsDataBase.MONGODB;
+        }
+        return admin;
     }
 
     public static IsDataBase getIsDataBase() {
@@ -29,14 +39,14 @@ public class AdminController {
 
     @PostMapping(value = "switchDataBase")
     public String switchDataBase(@RequestParam String isDataBase) {
-        IsDataBase isdb = IsDataBase.valueOf(isDataBase);
-        if (isdb == IsDataBase.MONGODB) {
+        IsDataBase handler= IsDataBase.valueOf(isDataBase);
+        if (handler == IsDataBase.MONGODB) {
             AdminController.isDataBase = IsDataBase.MONGODB;
         } else {
             AdminController.isDataBase = IsDataBase.POSTGRESQL;
         }
-        myLogger.appendInfo("Switched Database to " + isDataBase.toString());
-        return "Switched Database to "+ isDataBase.toString();
+        myLogger.appendInfo("Switched Database to " + isDataBase);
+        return "Switched Database to "+ isDataBase;
     }
 
     @PostMapping(value = "createDataBase")

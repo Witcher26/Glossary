@@ -30,14 +30,20 @@ public class DatabaseTests {
         System.out.println("AfterAll call");
     }
 
-//    @Test
-//    public void switchDataBaseTest(String POSTGRESQL) {
-//        boolean tmp;
-//        AdminController controller = new AdminController();
-//        tmp = controller.switchDataBase(POSTGRESQL);
-//
-//        System.out.println(tmp);
-//    }
+    @Test
+    public void switchDataBaseTest() {
+        String tmp;
+        String switchTo = "POSTGRESQL";
+        AdminController controller =AdminController.getAdmin();
+        tmp = controller.switchDataBase(switchTo);
+
+        System.out.println(tmp);
+
+        switchTo = "MONGODB";
+        tmp = controller.switchDataBase(switchTo);
+
+        System.out.println(tmp);
+    }
 
 
 //    @Test
