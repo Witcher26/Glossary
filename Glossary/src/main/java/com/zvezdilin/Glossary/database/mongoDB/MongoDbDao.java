@@ -30,8 +30,6 @@ public class MongoDbDao implements DAO {
             LOGGER.log(Level.WARNING, "Неудачная попытка создания базы данных: " + e.getMessage());
             return false;
         }
-
-
         return true;
     }
 

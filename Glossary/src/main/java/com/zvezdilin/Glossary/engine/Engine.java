@@ -1,6 +1,8 @@
 package com.zvezdilin.Glossary.engine;
 
 import com.google.gson.*;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Level;
@@ -18,7 +20,9 @@ public class Engine {
     String locale = "";
     String word = "";
 
-    @PostMapping("startEngine") // не клиентский endpoint
+    @Hidden
+    @Tag(name = "start Engine", description = "не клиентский endpoint для работы с engine")
+    @PostMapping("startEngine") //
     public String start(@RequestBody String requestFromClientInJson) {
         String result = "empty str";
 

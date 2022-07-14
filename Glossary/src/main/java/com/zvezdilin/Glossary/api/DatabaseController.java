@@ -3,11 +3,13 @@ package com.zvezdilin.Glossary.api;
 import com.zvezdilin.Glossary.database.DAO;
 import com.zvezdilin.Glossary.database.mongoDB.MongoDbDao;
 import com.zvezdilin.Glossary.database.postgresQL.PostgreSqlDao;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+@Tag(name = "Database controller", description = "чтение и обновление баз данных")
 @RestController
 @RequestMapping(value = "api/databaseController/v1/")
 public class DatabaseController {
@@ -18,6 +20,10 @@ public class DatabaseController {
     public DatabaseController() {
     }
 
+    @Operation(
+            summary = "чтение из базы данных",
+            description = "по умалчанию MongoDB"
+    )
     @GetMapping("database/read")
     public boolean readDbBase() {
         boolean tmp;
@@ -32,6 +38,10 @@ public class DatabaseController {
         return tmp;
     }
 
+    @Operation(
+            summary = "обновление базы данных",
+            description = "по умалчанию MongoDB"
+    )
     @GetMapping("database/update")
     public boolean updateDataBase() {
         boolean tmp;
