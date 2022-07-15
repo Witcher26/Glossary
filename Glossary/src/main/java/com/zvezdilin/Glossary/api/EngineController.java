@@ -3,8 +3,10 @@ package com.zvezdilin.Glossary.api;
 import com.zvezdilin.Glossary.engine.Engine;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Engine controller", description = "контроллер взаимодействия с хранилищем")
 @RestController
 @RequestMapping(value = "api/engineController/v1/")
 public class EngineController {
@@ -18,19 +20,7 @@ public class EngineController {
     @Operation(
             summary = "методы добавления, удаления слов и их вывода"
     )
-    @Schema(description = "json-строка", example = "{ \"target\": \"ADD\", " +
-            "\"word\": \"unit\", " +
-            "\"translation\": \"единица измерения\", " +
-            "\"locale\": \"EN\"" +
-            "}" +
-            "OR" +
-            "{ \"target\": \"REMOVE\", " +
-            "\"word\": \"unit\"" +
-            "}" +
-            "OR" +
-            "{ \"target\": \"GETALLTASKS\" " +
-            "}"
-    )
+//    @Schema(description = "json-строка", example = "json-string")
     @PostMapping("startEngine")
     public String startEngine(@RequestBody String requestFromClientInJson) {
         String result = "";

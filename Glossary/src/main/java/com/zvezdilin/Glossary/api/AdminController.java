@@ -63,13 +63,14 @@ public class AdminController {
     )
     @PostMapping(value = "createDataBase")
     public String createDataBase() {
+        boolean tmp;
         if (isDataBase == IsDataBase.MONGODB) {
             dao = new MongoDbDao();
         } else {
             dao = new PostgreSqlDao();
         }
-        dao.createDatabase();
-        myLogger.appendInfo("Attempt to create a database. Status: " + getIsDatabaseInfo());
+        tmp = dao.createDatabase();
+        myLogger.appendInfo("Attempt to create a database: " + getIsDatabaseInfo() + ". " + "Status " + String.valueOf(tmp));
         return "Created database a " + getIsDatabaseInfo();
     }
 
@@ -79,13 +80,14 @@ public class AdminController {
     )
     @PostMapping(value = "deleteDataBase")
     public String deleteDataBase() {
+        boolean tmp;
         if (isDataBase == IsDataBase.MONGODB) {
             dao = new MongoDbDao();
         } else {
             dao = new PostgreSqlDao();
         }
-        dao.deleteDatabase();
-        myLogger.appendInfo("Attempt to delete a database " + getIsDatabaseInfo());
+        tmp = dao.deleteDatabase();
+        myLogger.appendInfo("Attempt to delete a database: " + getIsDatabaseInfo() + ". " + "Status: " + String.valueOf(tmp));
         return "deleted database a " + getIsDatabaseInfo();
     }
 
@@ -99,7 +101,7 @@ public class AdminController {
     }
 
     @Operation(
-            summary = "Логгер"
+            summary = "логгер"
     )
     @GetMapping("getLoggerInfo")
     public String getLoggerInfo() {

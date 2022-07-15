@@ -2,12 +2,16 @@ package com.zvezdilin.Glossary.engine;
 
 import com.zvezdilin.Glossary.model.entity.English;
 import com.zvezdilin.Glossary.model.entity.Language;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Hidden
+@Tag(name = "storage", description = "не клиентский endpoint для работы со storage connector")
 @RestController
 @RequestMapping("api/storage")
 public class StorageConnector implements Storage {
@@ -19,7 +23,7 @@ public class StorageConnector implements Storage {
         wordsMap = GlobalRepository.getRepository().getWordsMap();
     }
 
-    @PostMapping("addWord")  //TODO отсюда убрать @PostMapping
+    @PostMapping("addWord")
     @Override
     public boolean addWord(@RequestParam("word") String word, @RequestParam("translate") String translate, @RequestParam("locale") String locale) {
         Language newWord = null;
