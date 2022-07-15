@@ -4,12 +4,13 @@ import com.zvezdilin.Glossary.database.DAO;
 import com.zvezdilin.Glossary.database.mongoDB.MongoDbDao;
 import com.zvezdilin.Glossary.database.postgresQL.PostgreSqlDao;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * класс неклиентских запросов.
- * По умалчанию сохрание идет в MongoDb
+ * По умолчанию сохрание идет в базу данных MongoDb
  */
 
 @Tag(name = "Admin controller", description = "управление базами данных")
@@ -32,7 +33,7 @@ public class AdminController {
         return admin;
     }
 
-    public static IsDataBase getIsDataBase() {
+    static IsDataBase getIsDataBase() {
         return isDataBase;
     }
 
@@ -42,65 +43,63 @@ public class AdminController {
 
     @Operation(
             summary = "переключение между базами данных",
-            description = "по умалчанию MongoDB"
+            description = "по умолчанию активна база данных - MongoDB"
     )
     @PostMapping(value = "switchDataBase")
-    public String switchDataBase(@RequestParam String isDataBase) {
-        IsDataBase handler= IsDataBase.valueOf(isDataBase);
+    public String switchDataBase(@RequestParam @Parameter(description = "MONGODB or POSTGRESQL") String isDataBase) {
+        IsDataBase handler = IsDataBase.valueOf(isDataBase);
         if (handler == IsDataBase.MONGODB) {
             AdminController.isDataBase = IsDataBase.MONGODB;
         } else {
             AdminController.isDataBase = IsDataBase.POSTGRESQL;
         }
         myLogger.appendInfo("Switched Database to " + isDataBase);
-        return "Switched Database to "+ isDataBase;
+        return "Switched Database to " + isDataBase;
     }
 
     @Operation(
             summary = "создание базы данных",
-            description = "по умалчанию MongoDB"
+            description = "по умолчанию активна база данных MongoDB"
     )
     @PostMapping(value = "createDataBase")
-    public boolean createDataBase() {
-        boolean tmp;
+    public String createDataBase() {
         if (isDataBase == IsDataBase.MONGODB) {
             dao = new MongoDbDao();
         } else {
             dao = new PostgreSqlDao();
         }
-        tmp = dao.createDatabase();
-        myLogger.appendInfo("Attempt to create a database. Status: " + String.valueOf(tmp).toUpperCase());
-        return tmp;
+        dao.createDatabase();
+        myLogger.appendInfo("Attempt to create a database. Status: " + getIsDatabaseInfo());
+        return "Created database a " + getIsDatabaseInfo();
     }
 
     @Operation(
             summary = "удаление базы данных",
-            description = "по умалчанию MongoDB"
+            description = "по умолчанию активна база данных MongoDB"
     )
     @PostMapping(value = "deleteDataBase")
-    public boolean deleteDataBase() {
-        boolean tmp;
+    public String deleteDataBase() {
         if (isDataBase == IsDataBase.MONGODB) {
             dao = new MongoDbDao();
         } else {
             dao = new PostgreSqlDao();
         }
-        tmp = dao.deleteDatabase();
-        myLogger.appendInfo("Attempt to delete a database " + isDataBase.toString() +  ". Status: " + String.valueOf(tmp).toUpperCase());
-        return tmp;
+        dao.deleteDatabase();
+        myLogger.appendInfo("Attempt to delete a database " + getIsDatabaseInfo());
+        return "deleted database a " + getIsDatabaseInfo();
     }
 
     @Operation(
             summary = "получение информации о текущей базе данных",
-            description = "по умалчанию MongoDB"
+            description = "по умолчанию активна база данных MongoDB"
     )
     @GetMapping("getIsDatabase")
-    public String getIsDatabase() {
-        return getIsDataBase().toString();
+    public String getIsDatabaseInfo() {
+        return "Current database is a " + getIsDataBase().toString();
     }
 
     @Operation(
-            summary = "логгер"
+            summary = "Логгер"
     )
     @GetMapping("getLoggerInfo")
     public String getLoggerInfo() {

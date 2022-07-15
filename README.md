@@ -1,7 +1,15 @@
-# Glossary
-Pet-project - REST API "Мой словарь". В РАЗРАБОТКЕ.
+**Добро пожаловать в мой репозиторий RESP-API - приложения "Glossary"**  
 
-http://localhost:63342/Glossary/Swagger%20UI.html?_ijt=3eikrsi5qvkla82lsiu5qjj09p&_ij_reload=RELOAD_ON_SAVE
-http://localhost:8080/swagger-ui.html
+***
+Для того, чтобы начать использование данного REST-API, необходимо следующее:
++  развернуть приложение на компьютере и запустить его
++ нажать на мануал по использованию 
+![запуск](img/2.guide)
++ выбрать браузер
+![запуск](3. browser)
 
-https://github.com/Witcher26/Glossary/blob/master2/Swagger%20UI.html
+либо перейти по указанной ссылке:
+http://localhost:8080/swagger-ui/index.html
+
+Перед вами откроется API-интерфейс взаимодейсвия с приложением:
+![запуск](1. interface)

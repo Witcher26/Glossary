@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Hidden
+@Tag(name = "start Engine", description = "не клиентский endpoint для работы с engine")
 @RestController
 @RequestMapping("api/engine/v1/")
 public class Engine {
@@ -20,8 +22,7 @@ public class Engine {
     String locale = "";
     String word = "";
 
-    @Hidden
-    @Tag(name = "start Engine", description = "не клиентский endpoint для работы с engine")
+
     @PostMapping("startEngine") //
     public String start(@RequestBody String requestFromClientInJson) {
         String result = "empty str";
