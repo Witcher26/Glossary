@@ -1,13 +1,16 @@
 package com.zvezdilin.GlossaryTests.database;
 
-//import com.zvezdilin.Glossary.database.mongoDB.MongoDbDao;
-
 import com.zvezdilin.Glossary.api.AdminController;
 import com.zvezdilin.Glossary.database.DAO;
 import com.zvezdilin.Glossary.database.mongoDB.MongoDbDao;
-import com.zvezdilin.Glossary.engine.Engine;
+import com.zvezdilin.Glossary.database.postgresQL.PostgreSqlDao;
 import com.zvezdilin.Glossary.engine.StorageConnector;
+import com.zvezdilin.Glossary.model.entity.BaseEntity;
+import com.zvezdilin.Glossary.model.entity.English;
 import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseTests {
     @BeforeAll
@@ -46,54 +49,55 @@ public class DatabaseTests {
     }
 
 
-//    @Test
-//    public void testCreateDatabaseAdapter() {
-//        //arrange
-////        MongoDbDao adapter = MongoDbDao.getInstance();
-////        StorageConnector connector = StorageConnector.getConnector();
-//
-//        connector.addWord("unit", "единица измерения", "EN");
-//        connector.addWord("summary", "резюмировать", "EN");
-//        connector.addWord("rejected", "отклоненный", "EN");
-//        connector.addWord("related", "связанный", "EN");
-//        connector.addWord("counterpart", "копия", "EN");
-//        connector.addWord("enhancement", "доработка", "EN");
-//
-//        ///act
-////        boolean result = adapter.createDatabase();
-//
-//        //assert
-//        Assertions.assertEquals(true, result);
-//    }
-
     @Test
-    public void testReadDatabaseAdapter() {
+    public void testCreateDatabaseAdapter() {
         //arrange
-        MongoDbDao adapter = new MongoDbDao();
-        StorageConnector connector = new StorageConnector();
-
-        connector.addWord("unit", "единица измерения", "EN");
-        connector.addWord("summary", "резюмировать", "EN");
-        connector.addWord("rejected", "отклоненный", "EN");
-        connector.addWord("related", "связанный", "EN");
-        connector.addWord("counterpart", "копия", "EN");
-        connector.addWord("enhancement", "доработка", "EN");
-
-        adapter.createDatabase();
-//        List<BaseEntity> expect = new ArrayList<>();
-//        expect.add((new English("summary", "резюмировать")));
+        DAO adapter = new PostgreSqlDao();
 
         ///act
-        boolean result = adapter.readDatabase();
+        boolean result = adapter.createDatabase();
 
         //assert
         Assertions.assertEquals(true, result);
     }
 
     @Test
-    public void testUpdateDatabaseAdapter() {
+    public void testReadDatabaseAdapter() {
         //arrange
         DAO adapter = new MongoDbDao();
+        StorageConnector connector = new StorageConnector();
+
+//        connector.addWord("unit", "единица измерения", "EN");
+//        connector.addWord("summary", "резюмировать", "EN");
+//        connector.addWord("rejected", "отклоненный", "EN");
+//        connector.addWord("related", "связанный", "EN");
+//        connector.addWord("counterpart", "копия", "EN");
+//        connector.addWord("enhancement", "доработка", "EN");
+
+//        adapter.createDatabase();
+//        List<BaseEntity> expect = new ArrayList<>();
+//        expect.add((new English("summary", "резюмировать")));
+
+        ///act
+        boolean resultMongo = adapter.readDatabase();
+        System.out.println(connector.getAllWords());
+
+        adapter = null;
+
+        DAO adapter2 = new PostgreSqlDao();
+        boolean resultPostgresQL = adapter2.readDatabase();
+        System.out.println(connector.getAllWords());
+
+
+        //assert
+        Assertions.assertEquals(true, resultMongo);
+        Assertions.assertEquals(true, resultPostgresQL);
+    }
+
+    @Test
+    public void testUpdateDatabaseAdapter() {
+        //arrange
+        DAO adapter = new PostgreSqlDao();
         StorageConnector storage = new StorageConnector();
         storage.addWord("debug", "отлаживать", "En");
         storage.addWord("ss", "опаап", "En");

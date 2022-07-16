@@ -51,10 +51,10 @@ public class PostgreSqlDao implements DAO {
                 statement.setInt(1, nonNullEntity.getId());
                 statement.setString(2, nonNullEntity.getLocalDateTime());
                 statement.setString(3, nonNullEntity.getWord());
-                statement.setString(3, nonNullEntity.getTranslation());
-                statement.setString(3, nonNullEntity.getLocale().toString());
-                statement.setString(3, nonNullEntity.getPriority().toString());
-                statement.setString(3, nonNullEntity.getType());
+                statement.setString(4, nonNullEntity.getTranslation());
+                statement.setString(5, nonNullEntity.getLocale().toString());
+                statement.setString(6, nonNullEntity.getPriority().toString());
+                statement.setString(7, nonNullEntity.getType());
 
                 numberOfInsertedRows = statement.executeUpdate();
             }
@@ -73,10 +73,9 @@ public class PostgreSqlDao implements DAO {
 
     @Override
     public boolean createDatabase() {
-        String sql = "CREATE TABLE Words"
-                + "("
-                + "id integer, localDateTime text, word text, text translation, locale text, priority text, type"
-                + ");";
+        String sql = "CREATE TABLE Words (" +
+                "id integer, localDateTime text, word text, translation text, locale text, priority text, type text" +
+                ");";
 
         try (Connection connection = JdbcConnection.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -111,8 +110,8 @@ public class PostgreSqlDao implements DAO {
                     String priority = resultSet.getString("priority");
                     String type = resultSet.getString("type");
 
-                    if(type.equalsIgnoreCase("EN")) {
-                        language = new English(id, localDateTime, word, translation, locale, priority, type);
+                    if (locale.equalsIgnoreCase("EN")) {
+                        language = new English(id, localDateTime, locale, word, translation, priority, type);
                     }
                     repository.addBaseEntity(language);
                     LOGGER.log(Level.INFO, "Found {0} in database", language.getId());
