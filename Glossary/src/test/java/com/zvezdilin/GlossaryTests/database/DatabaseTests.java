@@ -5,12 +5,8 @@ import com.zvezdilin.Glossary.database.DAO;
 import com.zvezdilin.Glossary.database.mongoDB.MongoDbDao;
 import com.zvezdilin.Glossary.database.postgresQL.PostgreSqlDao;
 import com.zvezdilin.Glossary.engine.StorageConnector;
-import com.zvezdilin.Glossary.model.entity.BaseEntity;
-import com.zvezdilin.Glossary.model.entity.English;
 import org.junit.jupiter.api.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseTests {
     @BeforeAll
@@ -35,9 +31,12 @@ public class DatabaseTests {
 
     @Test
     public void switchDataBaseTest() {
+        AdminController controller =AdminController.getAdmin();
+
+        System.out.println("Текущая база данных: " + controller.getIsDatabaseInfo());
         String tmp;
         String switchTo = "POSTGRESQL";
-        AdminController controller =AdminController.getAdmin();
+
         tmp = controller.switchDataBase(switchTo);
 
         System.out.println(tmp);
@@ -48,78 +47,73 @@ public class DatabaseTests {
         System.out.println(tmp);
     }
 
-
     @Test
     public void testCreateDatabaseAdapter() {
         //arrange
-        DAO adapter = new PostgreSqlDao();
+        DAO adapterMongoDB = new MongoDbDao();
+        DAO adapterPostgresql = new PostgreSqlDao();
 
         ///act
-        boolean result = adapter.createDatabase();
+        boolean resultMongoDb = adapterMongoDB.createDatabase();
+        boolean resultPostgresql = adapterPostgresql.createDatabase();
 
         //assert
-        Assertions.assertEquals(true, result);
+        Assertions.assertEquals(true, resultMongoDb);
+        Assertions.assertEquals(true, resultPostgresql);
     }
 
     @Test
     public void testReadDatabaseAdapter() {
         //arrange
-        DAO adapter = new MongoDbDao();
+        DAO adapterMongoDB = new MongoDbDao();
+        DAO adapterPostgresql = new PostgreSqlDao();
         StorageConnector connector = new StorageConnector();
 
-//        connector.addWord("unit", "единица измерения", "EN");
-//        connector.addWord("summary", "резюмировать", "EN");
-//        connector.addWord("rejected", "отклоненный", "EN");
-//        connector.addWord("related", "связанный", "EN");
-//        connector.addWord("counterpart", "копия", "EN");
-//        connector.addWord("enhancement", "доработка", "EN");
-
-//        adapter.createDatabase();
-//        List<BaseEntity> expect = new ArrayList<>();
-//        expect.add((new English("summary", "резюмировать")));
-
         ///act
-        boolean resultMongo = adapter.readDatabase();
+
+        boolean resultMNG = adapterMongoDB.readDatabase();
+        boolean resultPSTGR = adapterPostgresql.readDatabase();
+
         System.out.println(connector.getAllWords());
-
-        adapter = null;
-
-        DAO adapter2 = new PostgreSqlDao();
-        boolean resultPostgresQL = adapter2.readDatabase();
-        System.out.println(connector.getAllWords());
-
 
         //assert
-        Assertions.assertEquals(true, resultMongo);
-        Assertions.assertEquals(true, resultPostgresQL);
+        Assertions.assertEquals(true, resultMNG);
+        Assertions.assertEquals(true, resultPSTGR);
     }
 
     @Test
     public void testUpdateDatabaseAdapter() {
         //arrange
-        DAO adapter = new PostgreSqlDao();
+        DAO adapterMongoDB = new MongoDbDao();
+        DAO adapterPostgresql = new PostgreSqlDao();
+
         StorageConnector storage = new StorageConnector();
-        storage.addWord("debug", "отлаживать", "En");
-        storage.addWord("ss", "опаап", "En");
+        storage.addWord("TestOne", "первый тест", "en");
+        storage.addWord("testTwo", "второй тест", "En");
 
         ///act
-        boolean result = adapter.updateDatabase();
+        boolean resultMNG = adapterMongoDB.updateDatabase();
+        boolean resultPSTGR = adapterPostgresql.updateDatabase();
 
         //assert
-        Assertions.assertEquals(true, result);
+        Assertions.assertEquals(true, resultMNG);
+        Assertions.assertEquals(true, resultPSTGR);
+
     }
-//
-//    @Test
-//    public void testDeleteDataBaseAdapter() {
-//        //arrange
-//        MongoDbDao adapter = MongoDbDao.getInstance();
-//        StorageConnector connector = StorageConnector.getConnector();
-//
-//        //act
-//        boolean result = adapter.deleteDatabase();
-//
-//        //assert
-//        Assertions.assertEquals(true, result);
-//    }
+
+    @Test
+    public void testDeleteDataBaseAdapter() {
+        //arrange
+        DAO adapterMongoDB = new MongoDbDao();
+        DAO adapterPostgresql = new PostgreSqlDao();
+
+        //act
+        boolean resultMNG = adapterMongoDB.deleteDatabase();
+        boolean resultPSTGR = adapterPostgresql.deleteDatabase();
+
+        //assert
+        Assertions.assertEquals(true, resultMNG);
+        Assertions.assertEquals(true, resultPSTGR);
+    }
 
 }

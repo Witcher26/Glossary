@@ -2,7 +2,6 @@ package com.zvezdilin.Glossary.database.postgresQL;
 
 import com.zvezdilin.Glossary.database.DAO;
 import com.zvezdilin.Glossary.engine.GlobalRepository;
-import com.zvezdilin.Glossary.engine.StorageConnector;
 import com.zvezdilin.Glossary.model.entity.English;
 import com.zvezdilin.Glossary.model.entity.Language;
 
@@ -20,9 +19,10 @@ import java.sql.Statement;
 
 public class PostgreSqlDao implements DAO {
     private static final Logger LOGGER = Logger.getLogger(PostgreSqlDao.class.getName());
-    private Map<String, Language> wordsMap;
+    private final Map<String, Language> wordsMap;
     private Language nonNullEntity;
     GlobalRepository repository;
+    private final String table = "Words";
 
     public PostgreSqlDao() {
         repository = GlobalRepository.getRepository();
@@ -33,8 +33,8 @@ public class PostgreSqlDao implements DAO {
     public boolean updateDatabase() {
         String message = "The statement to be added should not be null";
 
-        String sql = "INSERT INTO "
-                + "Words(id, localDateTime, word, translation, locale, priority, type) "
+        String sql = "INSERT INTO " + table
+                + " (id, localDateTime, word, translation, locale, priority, type) "
                 + "VALUES(?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = JdbcConnection.getConnection()) {
@@ -73,8 +73,8 @@ public class PostgreSqlDao implements DAO {
 
     @Override
     public boolean createDatabase() {
-        String sql = "CREATE TABLE Words (" +
-                "id integer, localDateTime text, word text, translation text, locale text, priority text, type text" +
+        String sql = "CREATE TABLE " + table
+                + " (id integer, localDateTime text, word text, translation text, locale text, priority text, type text" +
                 ");";
 
         try (Connection connection = JdbcConnection.getConnection()) {
@@ -94,7 +94,7 @@ public class PostgreSqlDao implements DAO {
     @Override
     public boolean readDatabase() {
         Language language = null;
-        String sql = "SELECT * FROM Words";
+        String sql = "SELECT * FROM " + table;
 
         try (Connection connection = JdbcConnection.getConnection()) {
 
@@ -127,7 +127,8 @@ public class PostgreSqlDao implements DAO {
 
     @Override
     public boolean deleteDatabase() {
-        String sql = "DROP TABLE Words";
+        String sql = "DROP TABLE " + table;
+
         try (Connection connection = JdbcConnection.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
 
