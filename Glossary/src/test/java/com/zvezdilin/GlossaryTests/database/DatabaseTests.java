@@ -50,15 +50,15 @@ public class DatabaseTests {
     @Test
     public void testCreateDatabaseAdapter() {
         //arrange
-        DAO adapterMongoDB = new MongoDbDao();
+//        DAO adapterMongoDB = new MongoDbDao();
         DAO adapterPostgresql = new PostgreSqlDao();
 
         ///act
-        boolean resultMongoDb = adapterMongoDB.createDatabase();
+//        boolean resultMongoDb = adapterMongoDB.createDatabase();
         boolean resultPostgresql = adapterPostgresql.createDatabase();
 
         //assert
-        Assertions.assertEquals(true, resultMongoDb);
+//        Assertions.assertEquals(true, resultMongoDb);
         Assertions.assertEquals(true, resultPostgresql);
     }
 

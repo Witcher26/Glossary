@@ -15,7 +15,7 @@ public class JdbcConnection {
 
     private static final Logger LOGGER = Logger.getLogger(JdbcConnection.class.getName());
     private static Connection connection = null;
-    private static final String RESOURCES_PATH = "src/main/resources/database.properties";  //файл "database.properties" должен быть в resources
+    private static final String RESOURCES_PATH = "Glossary/src/main/resources/database.properties";  //файл "database.properties" должен быть в resources
 
     public static Connection getConnection() throws SQLException, IOException {
         if (connection == null) {

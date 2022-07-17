@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "api/adminController/v1/")
 public class AdminController {
     private static MySingletonLogger myLogger = MySingletonLogger.getLogger();
+    private static AdminController admin;
     private static IsDataBase isDataBase;
     private static DAO dao;
-    private static AdminController admin;
 
     private AdminController() {
     }
@@ -33,7 +33,7 @@ public class AdminController {
         return admin;
     }
 
-    static IsDataBase getIsDataBase() {
+    public IsDataBase getIsDataBase() {
         return isDataBase;
     }
 
@@ -48,11 +48,15 @@ public class AdminController {
     @PostMapping(value = "switchDataBase")
     public String switchDataBase(@RequestParam @Parameter(description = "MONGODB or POSTGRESQL") String isDataBase) {
         IsDataBase handler = IsDataBase.valueOf(isDataBase);
+
         if (handler == IsDataBase.MONGODB) {
             AdminController.isDataBase = IsDataBase.MONGODB;
-        } else {
+        }
+
+        if (handler == IsDataBase.POSTGRESQL) {
             AdminController.isDataBase = IsDataBase.POSTGRESQL;
         }
+
         myLogger.appendInfo("Switched Database to " + isDataBase);
         return "Switched Database to " + isDataBase;
     }
@@ -63,15 +67,19 @@ public class AdminController {
     )
     @PostMapping(value = "createDataBase")
     public String createDataBase() {
+
         boolean tmp;
-        if (isDataBase == IsDataBase.MONGODB) {
+        if (getIsDataBase()==IsDataBase.MONGODB) {
             dao = new MongoDbDao();
-        } else {
+        }
+
+        if (getIsDataBase()==IsDataBase.POSTGRESQL) {
             dao = new PostgreSqlDao();
         }
+
         tmp = dao.createDatabase();
-        myLogger.appendInfo("Attempt to create a database: " + getIsDatabaseInfo() + ". " + "Status " + String.valueOf(tmp));
-        return "Created database a " + getIsDatabaseInfo();
+        myLogger.appendInfo("Attempt to create a database: " + getIsDatabaseInfo() + ". " + "Status: " + tmp);
+        return "Created database a " + isDataBase;
     }
 
     @Operation(
@@ -80,15 +88,19 @@ public class AdminController {
     )
     @PostMapping(value = "deleteDataBase")
     public String deleteDataBase() {
+
         boolean tmp;
-        if (isDataBase == IsDataBase.MONGODB) {
+        if (getIsDataBase()==IsDataBase.MONGODB) {
             dao = new MongoDbDao();
-        } else {
+        }
+
+        if (getIsDataBase()==IsDataBase.POSTGRESQL) {
             dao = new PostgreSqlDao();
         }
+
         tmp = dao.deleteDatabase();
-        myLogger.appendInfo("Attempt to delete a database: " + getIsDatabaseInfo() + ". " + "Status: " + String.valueOf(tmp));
-        return "deleted database a " + getIsDatabaseInfo();
+        myLogger.appendInfo("Attempt to delete a database: " + getIsDatabaseInfo() + ". " + "Status: " + tmp);
+        return "deleted database a " + isDataBase;
     }
 
     @Operation(

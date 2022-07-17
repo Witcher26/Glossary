@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "api/databaseController/v1/")
 public class DatabaseController {
     private static MySingletonLogger myLogger = MySingletonLogger.getLogger();
-    private static IsDataBase isDataBase = AdminController.getIsDataBase();
+    private static IsDataBase isDataBase;
+    private static AdminController admin;
     private DAO dao;
 
     public DatabaseController() {
@@ -27,12 +28,15 @@ public class DatabaseController {
     @GetMapping("database/read")
     public boolean readDbBase() {
         boolean tmp;
-        if (isDataBase == IsDataBase.MONGODB) {
+        admin= AdminController.getAdmin();
+        if (admin.getIsDataBase() == IsDataBase.MONGODB) {
             dao = new MongoDbDao();
-        } else {
-            isDataBase = IsDataBase.POSTGRESQL;
+        }
+
+        if (admin.getIsDataBase() == IsDataBase.POSTGRESQL) {
             dao = new PostgreSqlDao();
         }
+
         tmp = dao.readDatabase();
         myLogger.appendInfo("Attempt to read a database. Status: " + String.valueOf(tmp).toUpperCase());
         return tmp;
@@ -45,10 +49,12 @@ public class DatabaseController {
     @GetMapping("database/update")
     public boolean updateDataBase() {
         boolean tmp;
-        if (isDataBase == IsDataBase.MONGODB) {
+        admin = AdminController.getAdmin();
+
+        if (admin.getIsDataBase()== IsDataBase.MONGODB) {
             dao = new MongoDbDao();
-        } else {
-            isDataBase = IsDataBase.POSTGRESQL;
+        }
+        if (admin.getIsDataBase()== IsDataBase.POSTGRESQL) {
             dao = new PostgreSqlDao();
         }
         tmp = dao.updateDatabase();
