@@ -17,7 +17,7 @@ public class EngineController {
     }
 
     @Operation(
-            summary = "методы добавления, удаления слов и их вывода в режиме одного окна"
+            summary = "метод добавления, удаления слов и их вывода в режиме одного окна"
     )
     @PostMapping("startEngine")
     public String startEngine(@RequestBody String requestFromClientInJson) {
