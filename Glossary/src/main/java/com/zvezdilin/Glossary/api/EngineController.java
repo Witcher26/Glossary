@@ -2,7 +2,6 @@ package com.zvezdilin.Glossary.api;
 
 import com.zvezdilin.Glossary.engine.Engine;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +17,8 @@ public class EngineController {
     }
 
     @Operation(
-            summary = "методы добавления, удаления слов и их вывода"
+            summary = "методы добавления, удаления слов и их вывода в режиме одного окна"
     )
-//    @Schema(description = "json-строка", example = "json-string")
     @PostMapping("startEngine")
     public String startEngine(@RequestBody String requestFromClientInJson) {
         String result = "";

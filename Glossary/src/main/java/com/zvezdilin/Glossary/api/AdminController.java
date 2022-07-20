@@ -86,7 +86,7 @@ public class AdminController {
             summary = "удаление базы данных",
             description = "по умолчанию активна база данных MongoDB"
     )
-    @PostMapping(value = "deleteDataBase")
+    @DeleteMapping(value = "deleteDataBase")
     public String deleteDataBase() {
 
         boolean tmp;
