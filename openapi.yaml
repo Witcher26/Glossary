@@ -1,0 +1,246 @@
+openapi: 3.0.0
+info:
+  title: My Glossary
+  contact:
+    name: Igor Zvezdilin
+    url: https://github.com/Witcher26
+    email: 1816178@mail.ru
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/api
+    description: Local server
+    
+paths:
+  /adminController/v1/createDataBase:
+    post:
+      summary: создание базы данныхек
+      description: по умолчанию активна база данных MongoDB
+      operationId: createDataBase 
+      tags:
+        - Admin controller
+      responses:
+        '200':
+          description: успешное создание базы данных
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessDataBase"
+        default:
+          description: Любая неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDataBase"
+  /adminController/v1/deleteDataBase:              
+    delete:
+      summary: удаление базы данных
+      description: по умолчанию активна база данных MongoDB
+      operationId: deleteDataBase
+      tags:
+        - Admin controller
+      responses:
+        '200':
+          description: успешное удаление базы данных
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessDeletedDataBase"
+        default:
+          description: Любая неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDataBase"
+  /adminController/v1/switchDataBase/{isDataBase}:              
+    post:
+      summary: переключение базы данных
+      description: по умолчанию активна база данных MongoDB
+      operationId: swichDataBase 
+      tags:
+        - Admin controller
+      parameters:
+        - name: isDataBase
+          in: path
+          required: true
+          description: Имя базы данных
+          schema:
+            type: string
+            enum:
+              - POSTGRESQL
+              - MONGODB
+      responses:
+        '200':
+          description: Switched Database to PostgresQL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessSwitchDataBase"
+        default:
+          description: Любая неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDataBase" 
+  /adminController/v1/getIsDatabaseInfo:              
+    get:
+      summary: получение информации о текущей базе данных
+      operationId: getIsDatabaseInfo 
+      tags:
+        - Admin controller
+      responses:
+        '200':
+          description: Current database is a PostgresQL
+        default:
+          description: Любая неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                 $ref: "#/components/schemas/ErrorDataBase"
+  /adminController/v1/getLoggerInfo:              
+    get:
+      summary: логгер
+      operationId: getLoggerInfo 
+      tags:
+        - Admin controller
+      responses:
+        '200':
+          description: 2022-07-20T15:17:29 шаг_№_1 Switched Database to MONGODB
+        default:
+          description: Любая неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                 $ref: "#/components/schemas/ErrorDataBase"                 
+    put:
+      summary: Метод обновления игрушки в каталоге
+      description: Метод предназначен для обновления в БД данных по имеющейся игрушке.
+      operationId: updateToy
+      tags:
+        - Toy
+      # parameters:
+      #   - name: id
+      #     in: path
+      #     required: true
+      #     description: Идентификатор игрушки
+      #     schema:
+      #       type: string
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/ErrorDataBase"
+      responses:
+        '200':
+          "description": Подтверждение успешного обновления
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDataBase"
+        '400':
+          "description": Некорректные входные данные. Возвращает список атрибутов с ошибками
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        default:
+          description: Любая неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDataBase"
+
+components:
+  schemas:
+    # Toy:
+    #   type: object
+    #   required:
+    #     - name
+    #     - status
+    #   properties:
+    #     toy_id:
+    #       type: string
+    #       example: 42abcd2b-8b9c-4af9-88f7-0bc180cf74b4
+    #     name:
+    #       description: Название игрушки
+    #       type: string
+    #       example: Train
+    #     status:
+    #       description: Статус (состояние) игрушки
+    #       type: string
+    #       enum:
+    #         - new
+    #         - used
+    #         - broken
+    #       example: new
+    #     note:
+    #       description: Описание, пометки
+    #       type: string
+    #       example: Found on a street
+    #     created_at:
+    #       description: Дата и время сохранения игрушки в каталоге
+    #       type: string
+    #       example: 2022-07-01T15:00:00+01
+    ErrorDataBase:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 2003
+          description: Cannot connect to SQL server on 'host_name' (111)
+        message:
+          type: boolean
+          example: false
+    SuccessDataBase:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 200
+        message:
+          type: string
+          example: Created database a PostgresQl
+          description: success
+    SuccessDeletedDataBase:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 200
+        message:
+          type: string
+          example: deleted database a PostgresQL
+          description: success    
+          
+    SuccessSwitchDataBase:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 200
+        message:
+          example: switched database to a PostgresQL
+          description: success        
+          
+        # message:
+        #   type: boolean
+        #   example: true
+        #   description: success
