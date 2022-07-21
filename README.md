@@ -1,4 +1,68 @@
 ## Добро пожаловать в репозиторий RESP-API - приложения "Glossary"
+Glossary
+- API version: 0.0.1
+  - Build date: 2022-07-21T12:56:34.978Z[GMT]
+
+  For more information, please visit [https://github.com/Witcher26](https://github.com/Witcher26)
+
+
+## Requirements
+
+Building the API client library requires:
+1. Java 1.7+
+2. Maven
+
+## Installation
+
+### Maven users
+
+Add this dependency to your project's POM:
+
+```xml
+<dependency>
+  <groupId>io.swagger</groupId>
+  <artifactId>swagger-java-client</artifactId>
+  <version>1.0.0</version>
+  <scope>compile</scope>
+</dependency>
+```
+Then manually install the following JARs:
+
+* `target/swagger-java-client-1.0.0.jar`
+* `target/lib/*.jar`
+
+## Documentation for API Endpoints
+
+All URIs are relative to *http://localhost:8080/api*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+*AdminControllerApi* | [**createDataBase**](docs/AdminControllerApi.md#createDataBase) | **POST** /adminController/v1/createDataBase | создание базы данных
+*AdminControllerApi* | [**deleteDataBase**](docs/AdminControllerApi.md#deleteDataBase) | **DELETE** /adminController/v1/deleteDataBase | удаление базы данных
+*AdminControllerApi* | [**getIsDatabaseInfo**](docs/AdminControllerApi.md#getIsDatabaseInfo) | **GET** /adminController/v1/getIsDatabaseInfo | получение информации о текущей базе данных
+*AdminControllerApi* | [**getLoggerInfo**](docs/AdminControllerApi.md#getLoggerInfo) | **GET** /adminController/v1/getLoggerInfo | логгер
+*AdminControllerApi* | [**swichDataBase**](docs/AdminControllerApi.md#swichDataBase) | **POST** /adminController/v1/switchDataBase/{isDataBase} | переключение баз данных
+*DatabaseControllerApi* | [**readDatabase**](docs/DatabaseControllerApi.md#readDatabase) | **GET** /databaseController/v1/database/read | Ммтод чтения данных из базы данных
+*DatabaseControllerApi* | [**updateDatabase**](docs/DatabaseControllerApi.md#updateDatabase) | **PUT** /databaseController/v1/database/update | метод обнолвения базы данных
+*EngineControllerApi* | [**engine**](docs/EngineControllerApi.md#engine) | **POST** /engineController/v1/startEngine/{requestFromClientInJson} | метод добавления слова, удаления слова, вывод всех слов
+
+## Documentation for Models
+
+ - [ErrorDataBase](docs/ErrorDataBase.md)
+ - [SuccessDataBase](docs/SuccessDataBase.md)
+ - [SuccessDeletedDataBase](docs/SuccessDeletedDataBase.md)
+ - [SuccessSwitchDataBase](docs/SuccessSwitchDataBase.md)
+
+## Documentation for Authorization
+
+All endpoints do not require authorization.
+Authentication schemes defined for the API:
+
+
+
+## Author
+
+1816178@mail.ru
 
 ***
 Для того, чтобы начать пользоваться данным REST-API, необходимо проделать следующие шаги:
@@ -44,5 +108,3 @@ http://localhost:8080/swagger-ui/index.html
 **Пример интерактивного окна метода из группы контролера Admin**
 
 ![](img/7_example.JPG)
-
-На указанном красной стрелкой терминале выводится сообщение об удачном переключении базы данных

@@ -110,26 +110,14 @@ paths:
           content:
             application/json:
               schema:
-                 $ref: "#/components/schemas/ErrorDataBase"                 
-    put:
-      summary: Метод обновления игрушки в каталоге
-      description: Метод предназначен для обновления в БД данных по имеющейся игрушке.
-      operationId: updateToy
+                 $ref: "#/components/schemas/ErrorDataBase"               
+  /databaseController/v1/database/read:         
+    get:
+      summary: Метод чтения данных из базы данных 
+      description: по умолчанию активна база данных MongoD
+      operationId: readDatabase
       tags:
-        - Toy
-      # parameters:
-      #   - name: id
-      #     in: path
-      #     required: true
-      #     description: Идентификатор игрушки
-      #     schema:
-      #       type: string
-      requestBody:
-        required: true
-        content:
-          'application/json':
-            schema:
-              $ref: "#/components/schemas/ErrorDataBase"
+        - Database Controller
       responses:
         '200':
           "description": Подтверждение успешного обновления
@@ -151,38 +139,49 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorDataBase"
-
+  /databaseController/v1/database/update:  
+   put:
+    summary: Метод обнолвения базы данных
+    description: по умолчанию активна база данных MongoD
+    operationId: updateDatabase
+    tags:
+        - Database Controller
+    responses: 
+      '200':
+        "description": Подтверждение успешного обновления
+    
+  /engineController/v1/startEngine/{requestFromClientInJson}:  
+   post:
+    summary: Метод добавления слова, удаления слова, вывод всех слов
+    operationId: engine
+    tags:
+        - Engine Controller  
+    responses: 
+      '200':
+            "description": Слово "test "успешно добавлено в словарь
+      '201':
+        "description": Слово "test" удалено
+      '202':
+       "description": Слово - "test", его перевод - "тест", его id - "902604495"
+      default:
+          description: Неверный синтаксис запроса
+    parameters:
+        - name: requestFromClientInJson
+          in: path
+          required: true
+          description: ADD - добавление слова, REMOVE - удаление слова, GETALLTASKS - вывод всех слов
+          schema:
+            type: string
+            enum:
+            - target: ADD
+              word: test
+              translation: тестовое слово для проверки
+              locale: EN
+            - target: REMOVE
+              word: test
+            - target: GETALLTASKS
 components:
   schemas:
-    # Toy:
-    #   type: object
-    #   required:
-    #     - name
-    #     - status
-    #   properties:
-    #     toy_id:
-    #       type: string
-    #       example: 42abcd2b-8b9c-4af9-88f7-0bc180cf74b4
-    #     name:
-    #       description: Название игрушки
-    #       type: string
-    #       example: Train
-    #     status:
-    #       description: Статус (состояние) игрушки
-    #       type: string
-    #       enum:
-    #         - new
-    #         - used
-    #         - broken
-    #       example: new
-    #     note:
-    #       description: Описание, пометки
-    #       type: string
-    #       example: Found on a street
-    #     created_at:
-    #       description: Дата и время сохранения игрушки в каталоге
-    #       type: string
-    #       example: 2022-07-01T15:00:00+01
     ErrorDataBase:
       type: object
       required:
@@ -239,8 +238,3 @@ components:
         message:
           example: switched database to a PostgresQL
           description: success        
-          
-        # message:
-        #   type: boolean
-        #   example: true
-        #   description: success
