@@ -1,0 +1,10 @@
+com.zvezdilin.Glossary
+com.zvezdilin.Glossary.api
+com.zvezdilin.Glossary.api.swagger
+com.zvezdilin.Glossary.database
+com.zvezdilin.Glossary.database.mongoDB
+com.zvezdilin.Glossary.database.postgresQL
+com.zvezdilin.Glossary.engine
+com.zvezdilin.Glossary.model.config
+com.zvezdilin.Glossary.model.entity
+com.zvezdilin.Glossary.model.exeptionClass
